@@ -20,6 +20,12 @@ export class User {
 	@Column({ default: false })
 	approved: boolean;
 
+	@Column({ default: true })
+	acceptAsks: boolean;
+
+	@Column({ default: true })
+	showResponses: boolean;
+
 	@Column({ default: false })
 	admin: boolean;
 }
