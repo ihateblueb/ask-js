@@ -5,6 +5,7 @@
 		selected = false,
 		short = false,
 		collapsable = false,
+		count = 0,
 		href = ''
 	} = $props();
 </script>
@@ -18,6 +19,11 @@
 		{href}
 	>
 		<slot></slot>
+		{#if count > 0}
+			<span class="count">
+				{count > 9 ? "9+" : count}
+			</span>
+		{/if}
 		<span class="bar" in:slide|global={{ duration: 150, axis: 'x' }}></span>
 	</a>
 {:else}
@@ -29,6 +35,11 @@
 		on:click
 	>
 		<slot></slot>
+		{#if count > 0}
+			<span class="count">
+				{count > 9 ? "9+" : count}
+			</span>
+		{/if}
 		<span class="bar" in:slide|global={{ duration: 150, axis: 'x' }}></span>
 	</button>
 {/if}

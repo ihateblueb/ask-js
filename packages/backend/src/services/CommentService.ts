@@ -3,6 +3,7 @@ import db from '../utils/db.js';
 import IdService from './IdService.js';
 import SanitizerService from './SanitizerService.js';
 import AskService from './AskService.js';
+import NotificationService from './NotificationService.js';
 
 class CommentService {
 	public async get(where: ObjectLiteral) {
@@ -46,6 +47,8 @@ class CommentService {
 		};
 
 		await db.getRepository('comment').insert(comment);
+
+		await NotificationService.create('comment', commentingOnAsk.to, as, id);
 
 		return {
 			error: false,

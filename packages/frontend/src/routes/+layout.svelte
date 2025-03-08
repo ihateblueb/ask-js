@@ -4,8 +4,9 @@
 	import queryClient from '$lib/queryClient.js';
 	import localStore from '$lib/localStore.js';
 	import Avatar from '$lib/components/Avatar.svelte';
-	import { IconDashboard, IconInbox, IconLogout } from '@tabler/icons-svelte';
+	import { IconBell, IconDashboard, IconInbox, IconLogout } from '@tabler/icons-svelte';
 	import Tab from '$lib/components/Tab.svelte';
+	import store from '$lib/store.js';
 
 	let selfRaw = localStore.get('self');
 	let selfParsed = undefined;
@@ -13,6 +14,12 @@
 	try {
 		selfParsed = JSON.parse(selfRaw);
 	} catch {}
+
+	let unreadNotifications = $state(0)
+
+	store.unreadNotifications.subscribe((e) => {
+		unreadNotifications = e
+	})
 </script>
 
 <QueryClientProvider client={queryClient}>
@@ -49,6 +56,16 @@
 									>
 										<IconInbox size="18px" />
 										Inbox
+									</Tab>
+									<Tab
+										collapsable
+										href={'/notifications'}
+										selected={page.url.pathname ===
+											'/notifications'}
+										count={unreadNotifications}
+									>
+										<IconBell size="18px" />
+										Notifications
 									</Tab>
 								{/key}
 							</div>

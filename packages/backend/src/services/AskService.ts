@@ -3,6 +3,7 @@ import UserService from './UserService.js';
 import db from '../utils/db.js';
 import IdService from './IdService.js';
 import SanitizerService from './SanitizerService.js';
+import NotificationService from './NotificationService.js';
 
 class AskService {
 	public async get(where: ObjectLiteral) {
@@ -59,6 +60,14 @@ class AskService {
 		};
 
 		await db.getRepository('ask').insert(ask);
+
+		await NotificationService.create(
+			'ask',
+			ask.to,
+			undefined,
+			undefined,
+			id
+		);
 
 		return {
 			error: false,
