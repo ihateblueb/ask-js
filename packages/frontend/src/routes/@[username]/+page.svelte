@@ -109,6 +109,8 @@
 
 				.username {
 					color: var(--tx-3);
+					text-overflow: ellipsis;
+					word-break: break-all;
 				}
 			}
 		}

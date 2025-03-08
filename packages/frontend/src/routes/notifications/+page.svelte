@@ -73,7 +73,7 @@
 						<IconArrowBackUp size="18px" />
 						<p>
 							<a class="subtle" href={"/@"+object.comment.user.username}>{object.comment.user.displayName ?? object.comment.user.username}</a>
-							commented on your response
+							<span dir="ltr"> commented on your response</span>
 						</p>
 					{/if}
 
@@ -149,6 +149,7 @@
 			p {
 				a {
 					font-weight: bold;
+					word-break: break-all;
 				}
 			}
 
