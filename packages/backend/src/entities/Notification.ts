@@ -48,7 +48,7 @@ export class Notification {
 
 	// objects
 
-	@Column({ select: false })
+	@Column({ select: false, nullable: true })
 	commentId: string;
 
 	@ManyToOne(() => Comment, (comment) => comment, {
@@ -58,7 +58,7 @@ export class Notification {
 	@JoinColumn({ name: 'commentId' })
 	comment: typeorm.Relation<Comment>;
 
-	@Column({ select: false })
+	@Column({ select: false, nullable: true })
 	askId: string;
 
 	@ManyToOne(() => Ask, (ask) => ask, {

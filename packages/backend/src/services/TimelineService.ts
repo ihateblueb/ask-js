@@ -3,6 +3,7 @@ import AskService from './AskService.js';
 import InviteService from './InviteService.js';
 import UserService from './UserService.js';
 import CommentService from './CommentService.js';
+import NotificationService from './NotificationService.js';
 
 class TimelineService {
 	public async get(
@@ -21,6 +22,12 @@ class TimelineService {
 			timelineObjects = await InviteService.getMany(where, order, take);
 		if (type === 'user')
 			timelineObjects = await UserService.getMany(where, order, take);
+		if (type === 'notification')
+			timelineObjects = await NotificationService.getMany(
+				where,
+				order,
+				take
+			);
 
 		return this.sort(timelineObjects, take);
 	}

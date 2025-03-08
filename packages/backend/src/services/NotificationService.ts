@@ -56,7 +56,8 @@ class CommentService {
 			fromId: from,
 			type: type,
 			commentId: comment,
-			askId: ask
+			askId: ask,
+			createdAt: new Date().toISOString()
 		};
 
 		await db.getRepository('notification').insert(notification);
@@ -76,7 +77,7 @@ class CommentService {
 	public async read(since: string, as: string) {
 		await db.getRepository('notification').update(
 			{
-				user: { id: as },
+				to: { id: as },
 				createdAt: LessThan(since)
 			},
 			{
