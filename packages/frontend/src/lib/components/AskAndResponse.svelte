@@ -41,7 +41,7 @@ ${page.url.protocol + '//' + page.url.host + '/ask/' + data.id}`);
 
 {#snippet inner()}
 	<div class="question">
-		<p>{data.content}</p>
+		<p>{@html data.content}</p>
 		<br />
 		<small class="time"
 			><a href={'/ask/' + data.id}
@@ -61,7 +61,7 @@ ${page.url.protocol + '//' + page.url.host + '/ask/' + data.id}`);
 	</div>
 	<div class="response">
 		{#if submittedResponse || data.response}
-			<p>{submittedResponse ? response : data.response}</p>
+			<p>{@html submittedResponse ? response : data.response}</p>
 		{:else if onResponsePage && !submittedResponse}
 			<input
 				class="ipt tertiary"

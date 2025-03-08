@@ -7,6 +7,7 @@
 		<img
 			class="avatar"
 			src={user.avatar}
+			loading="lazy"
 			style={'height:' + size + 'px;width:' + size + 'px;'}
 		/>
 	{:else}
