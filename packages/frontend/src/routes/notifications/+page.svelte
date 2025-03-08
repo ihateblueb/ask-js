@@ -85,9 +85,9 @@
 				{/snippet}
 				{#snippet body(object)}
 					{#if object.type === 'ask'}
-						<p>{object.ask.content}</p>
+						<p>{@html object.ask.content}</p>
 					{:else if object.type === 'comment'}
-						<p>{object.comment.content}</p>
+						<p>{@html object.comment.content}</p>
 					{/if}
 				{/snippet}
 				{#snippet action(object)}
@@ -173,7 +173,7 @@
 		.action {
 			// 10px gap, 18px icon
 			margin-left: 28px;
-			
+
 			display: flex;
 			gap: 10px;
 		}
