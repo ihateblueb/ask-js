@@ -66,9 +66,12 @@ fastify
 
 await fastify;
 
-fastify.listen({ port: Number(config.port ?? 3579) }, function (err, address) {
-	if (err) {
-		fastify.log.error(err);
-		process.exit(1);
+fastify.listen(
+	{ host: config.host ?? '0.0.0.0', port: Number(config.port ?? 3579) },
+	function (err, address) {
+		if (err) {
+			fastify.log.error(err);
+			process.exit(1);
+		}
 	}
-});
+);
