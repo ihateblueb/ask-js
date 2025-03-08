@@ -1,7 +1,7 @@
 import { ObjectLiteral } from 'typeorm';
 import db from '../../utils/db.js';
 
-class AskBuilder {
+class AskRenderer {
 	public async build(object: ObjectLiteral) {
 		object['commentCount'] = await db.getRepository('comment').count({
 			where: {
@@ -25,4 +25,4 @@ class AskBuilder {
 	}
 }
 
-export default new AskBuilder();
+export default new AskRenderer();

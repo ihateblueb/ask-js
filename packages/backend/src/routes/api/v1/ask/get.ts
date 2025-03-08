@@ -1,7 +1,7 @@
 import plugin from 'fastify-plugin';
 import { FromSchema } from 'json-schema-to-ts';
 import AskService from '../../../../services/AskService.js';
-import AskBuilder from '../../../../services/builders/AskBuilder.js';
+import AskRenderer from '../../../../services/renderers/AskRenderer.js';
 
 export default plugin(async (fastify) => {
 	const schema = {
@@ -28,7 +28,7 @@ export default plugin(async (fastify) => {
 			if (!ask || ask.visibility === 'private' || !ask.response)
 				return reply.status(404).send({ message: 'Ask not found' });
 
-			return reply.status(200).send(await AskBuilder.build(ask));
+			return reply.status(200).send(await AskRenderer.build(ask));
 		}
 	);
 });
