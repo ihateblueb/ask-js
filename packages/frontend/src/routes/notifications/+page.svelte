@@ -144,6 +144,7 @@
 			display: flex;
 			align-items: center;
 			gap: 10px;
+			margin: 0;
 
 			p {
 				a {
@@ -153,6 +154,8 @@
 
 			.read {
 				display: flex;
+				display: flex;
+				align-items: center;
 				justify-content: flex-end;
 				flex-grow: 1;
 			}
@@ -168,6 +171,9 @@
 		}
 
 		.action {
+			// 10px gap, 18px icon
+			margin-left: 28px;
+			
 			display: flex;
 			gap: 10px;
 		}
