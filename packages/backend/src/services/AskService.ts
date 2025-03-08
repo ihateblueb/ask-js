@@ -100,6 +100,15 @@ class AskService {
 			}
 		);
 
+		await db.getRepository('notification').update(
+			{
+				ask: { id: id }
+			},
+			{
+				read: true
+			}
+		);
+
 		return {
 			error: false,
 			status: 200,
