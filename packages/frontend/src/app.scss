@@ -69,11 +69,15 @@ body {
 
 	font-family: system-ui;
 
-	@media (max-width: 480px) {
+	@media (max-width: 535px) {
 		.btn.tab {
 			&.collapsable {
 				gap: 0;
 				font-size: 0;
+
+				.count {
+					margin-left: 5px;
+				}
 			}
 		}
 	}
@@ -232,6 +236,17 @@ small {
 
 	&:hover {
 		background: none;
+	}
+
+	.count {
+		color: var(--ac-1);
+		font-size: 11px;
+		font-weight: bold;
+
+		background-color: var(--ac-1-50);
+
+		padding: 2px 4px;
+		border-radius: 5px;
 	}
 
 	.bar {
@@ -395,8 +410,16 @@ label {
 	margin-bottom: 10px;
 	box-sizing: border-box;
 
-	h2 {
+	h2,.header {
 		margin-bottom: 5px;
+	}
+
+	.header {
+		display: flex;
+
+		h2 {
+			flex-grow: 1;
+		}
 	}
 }
 

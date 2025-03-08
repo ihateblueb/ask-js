@@ -24,7 +24,11 @@ class CommentService {
 			.createQueryBuilder('notification')
 			.leftJoinAndSelect('notification.to', 'to')
 			.leftJoinAndSelect('notification.from', 'from')
+
 			.leftJoinAndSelect('notification.comment', 'comment')
+			.leftJoinAndSelect('comment.user', 'comment_user')
+			.leftJoinAndSelect('comment.commentingOn', 'comment_commentingOn')
+
 			.leftJoinAndSelect('notification.ask', 'ask')
 			.where(where)
 			.orderBy(order, 'DESC')

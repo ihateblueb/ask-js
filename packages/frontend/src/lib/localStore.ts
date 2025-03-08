@@ -1,9 +1,14 @@
 import { browser } from '$app/environment';
 
-let defaults = {
+type localStore = {
+	self: any | undefined;
+	token: string | undefined;
+	meta: any | undefined;
+};
+
+let defaults: localStore = {
 	self: undefined,
 	token: undefined,
-
 	meta: undefined
 };
 
