@@ -13,7 +13,7 @@ services:
             # wget -O config.json https://raw.githubusercontent.com/ihateblueb/ask-js/refs/heads/main/config/config.example.json
             #
             # this file *must* also be modified to replace "host" under "db" with "db", any other changes are of personal preference
-            - ./config.json:/ask-js/config/config.json
+            - ./config.json:/app/config/config.json
 
     db:
         restart: unless-stopped
