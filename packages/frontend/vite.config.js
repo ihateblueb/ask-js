@@ -13,6 +13,10 @@ export default defineConfig({
 			'/api': {
 				target: apiurl,
 				changeOrigin: true
+			},
+			'/static/custom.css': {
+				target: apiurl,
+				changeOrigin: true
 			}
 		}
 	},

@@ -23,7 +23,6 @@ export default plugin(async (fastify) => {
 				},
 				avatar: {
 					type: ['string', 'null'],
-					minLength: 1,
 					maxLength: 500
 				},
 				prompt: {

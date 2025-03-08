@@ -1,6 +1,4 @@
 import plugin from 'fastify-plugin';
-import { FromSchema } from 'json-schema-to-ts';
-import AskService from '../../../../services/AskService.js';
 import AutopostService from '../../../../services/AutopostService.js';
 
 export default plugin(async (fastify) => {

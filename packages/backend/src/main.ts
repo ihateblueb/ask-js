@@ -11,6 +11,7 @@ import fastifyAuth from '@fastify/auth';
 import { handler } from 'frontend/build/handler.js';
 import config from '../../../config/config.json' with { type: 'json' };
 import IdService from './services/IdService.js';
+import fastifyStatic from '@fastify/static';
 
 const fastify = Fastify({
 	logger: true,
@@ -59,6 +60,10 @@ fastify
 	.register(fastifyAuth)
 	.register(fastifyAutoload, {
 		dir: path.join(process.cwd(), 'built', 'routes')
+	})
+	.register(fastifyStatic, {
+		root: path.resolve(process.cwd(), 'src', 'static'),
+		prefix: '/static'
 	})
 	.get('/*', (req, reply) => {
 		handler(req.raw, reply.raw, () => {});
