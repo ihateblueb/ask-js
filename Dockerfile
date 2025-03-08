@@ -4,7 +4,7 @@ ARG node=22
 ARG alpine=3.21
 
 FROM docker.io/library/node:${node}-alpine${alpine} AS web-base
-RUN --mount=type=cache,target=/var/cache/apk \
+RUN --mount=type=cache,target=/var/cache \
     apk -U upgrade \
  && adduser -h /app -u 1001 -k /dev/null -D app \
  && chown app:app /app
