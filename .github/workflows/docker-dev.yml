@@ -6,6 +6,7 @@ on:
           - main
     workflow_dispatch:
 env:
+    IMAGE_NAME: ask-js
     IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
 
 jobs:
@@ -16,92 +17,63 @@ jobs:
             contents: read
             packages: write
             id-token: write
-        strategy:
-            fail-fast: false
-            matrix:
-              platform:
-                - linux/amd64
-                - linux/arm64
 
         steps:
-            - name: Preparation
-              run: |
-                platform=${{ matrix.platform }}
-                echo "PLATFORM_PAIR=${platform//\//-}" >> $GITHUB_ENV
-
             - name: Checkout Push to Registry action
               uses: actions/checkout@v4
+              with:
+                fetch-depth: 1
 
-            - name: Gather environment variables
-              run: echo "IMAGE_NAME=ask-js" >> $GITHUB_ENV
+            - uses: sigstore/cosign-installer@v3.8.1
+              if: github.event_name != 'pull_request'
+
+            - name: Set up Docker Buildx
+              id: buildx
+              uses: docker/setup-buildx-action@v3.0.0
+              with:
+                platforms: linux/amd64,linux/arm64
 
             - name: Image Metadata
               uses: docker/metadata-action@v5
               id: meta
               with:
                   images: |
-                      ${{ env.IMAGE_NAME }}
+                      ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}
                   labels: |
                       org.opencontainers.image.title=${{ env.IMAGE_NAME }}
                       org.opencontainers.image.description=multiuser ask software
-
-            - name: Generate tags
-              id: generate-tags
-              shell: bash
-              run: |
-                  # Generate a timestamp for creating an image version history
-                  TIMESTAMP="$(date +%Y%m%d)"
-                  COMMIT_TAGS=()
-                  BUILD_TAGS=()
-                  # Have tags for tracking builds during pull request
-                  SHA_SHORT="${GITHUB_SHA::7}"
-                  COMMIT_TAGS+=("pr-${{ github.event.number }}")
-                  COMMIT_TAGS+=("${SHA_SHORT}")
-
-                  BUILD_TAGS+=("${TIMESTAMP}")
-                  BUILD_TAGS+=("dev")
-
-                  if [[ "${{ github.event_name }}" == "pull_request" ]]; then
-                      echo "Generated the following commit tags: "
-                      for TAG in "${COMMIT_TAGS[@]}"; do
-                          echo "${TAG}"
-                      done
-                      alias_tags=("${COMMIT_TAGS[@]}")
-                  else
-                      alias_tags=("${BUILD_TAGS[@]}")
-                  fi
-                  echo "Generated the following build tags: "
-                  for TAG in "${BUILD_TAGS[@]}"; do
-                      echo "${TAG}"
-                  done
-                  echo "alias_tags=${alias_tags[*]}" >> $GITHUB_OUTPUT
-
-            - name: Build Image
-              id: build_image
-              uses: redhat-actions/buildah-build@v2
-              with:
-                  containerfiles: "Dockerfile"
-                  image: ${{ env.IMAGE_NAME }}
                   tags: |
-                      ${{ steps.generate-tags.outputs.alias_tags }}
-                  labels: ${{ steps.meta.outputs.labels }}
-                  oci: false
+                      type=sha
+                      type=ref,event=pr
+                      type=raw,enable=${{ endsWith(github.ref, github.event.repository.default_branch) }},value=dev
+                  # https://github.com/docker/metadata-action/issues/84
 
-            - name: Push To GHCR
-              uses: redhat-actions/push-to-registry@v2
-              id: push
-              if: github.event_name != 'pull_request'
-              env:
-                  REGISTRY_USER: ${{ github.actor }}
-                  REGISTRY_PASSWORD: ${{ github.token }}
+            - name: Setup cache
+              uses: actions/cache@v3
+              id: cache
               with:
-                  image: ${{ steps.build_image.outputs.image }}
-                  tags: ${{ steps.build_image.outputs.tags }}
-                  registry: ${{ env.IMAGE_REGISTRY }}
-                  username: ${{ env.REGISTRY_USER }}
-                  password: ${{ env.REGISTRY_PASSWORD }}
-                  extra-args: |
-                      --disable-content-trust
+                  path: |
+                    var-cache
+                    root-npm
+                    app-pnpm
+                    app-modules
+                    app-backend-modules
+                    app-frontend-modules
+                  key: cache-${{ hashFiles('Dockerfile') }}
+
+            - name: Inject cache into Docker
+              uses: reproducible-containers/buildkit-cache-dance@v3
+              with:
+                cache-map: |
+                    {
+                    "var-cache": "/var/cache",
+                    "root-npm": "/root/.npm",
+                    "app-pnpm": "/app/.local/share/pnpm",
+                    "app-modules": "/app/node_modules",
+                    "app-backend-modules": "/app/packages/backend/node_modules",
+                    "app-frontend-modules": "/app/packages/frontend/node_modules"
+                    }
+                skip-extraction: ${{ steps.cache.outputs.cache-hit }}
 
             - name: Login to GitHub Container Registry
               uses: docker/login-action@v3
@@ -111,19 +83,28 @@ jobs:
                   username: ${{ github.actor }}
                   password: ${{ secrets.GITHUB_TOKEN }}
 
-            - uses: sigstore/cosign-installer@v3.8.1
-              if: github.event_name != 'pull_request'
+            - name: Build and Push to GHCR
+              id: build
+              uses: docker/build-push-action@v5
+              with:
+                builder: ${{ steps.buildx.outputs.name }}
+                context: .
+                push: ${{ github.event_name != 'pull_request' }}
+                platforms: ${{ steps.buildx.outputs.platforms }}
+                tags: ${{ steps.meta.outputs.tags }}
+                labels: ${{ steps.meta.outputs.labels }}
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
 
             - name: Sign container image
               if: github.event_name != 'pull_request'
               run: |
-                  cosign sign -y --key env://COSIGN_PRIVATE_KEY ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}@${TAGS}
+                images=""
+                for tag in ${TAGS}; do
+                    images+="${tag}@${DIGEST} "
+                done
+                cosign sign --yes --key env://COSIGN_PRIVATE_KEY ${images}
               env:
-                  TAGS: ${{ steps.push.outputs.digest }}
-                  COSIGN_EXPERIMENTAL: false
-                  COSIGN_PRIVATE_KEY: ${{ secrets.SIGNING_SECRET }}
-
-            - name: Echo outputs
-              if: github.event_name != 'pull_request'
-              run: |
-                  echo "${{ toJSON(steps.push.outputs) }}"
+                DIGEST: ${{ steps.build.outputs.digest }}
+                TAGS: ${{ steps.meta.outputs.tags }}
+                COSIGN_PRIVATE_KEY: ${{ secrets.SIGNING_SECRET }}
