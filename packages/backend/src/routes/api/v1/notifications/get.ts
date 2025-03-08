@@ -10,13 +10,13 @@ export default plugin(async (fastify) => {
 			type: 'object',
 			properties: {
 				since: { type: ['string', 'null'] },
-				take: { type: ['number', 'null'] }
+				take: { type: ['number', 'null'] },
+				read: { type: ['boolean', 'null'] }
 			}
 		}
 	} as const;
 
 	fastify.get<{
-		Params: FromSchema<typeof schema.params>;
 		Querystring: FromSchema<typeof schema.querystring>;
 	}>(
 		'/api/v1/notifications',
@@ -33,6 +33,8 @@ export default plugin(async (fastify) => {
 
 			if (req.query.since) where['createdAt'] = LessThan(req.query.since);
 			if (req.query.take) take = req.query.take;
+
+			if (!req.query.read) where['read'] = false;
 
 			console.log(where);
 
