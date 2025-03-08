@@ -1,8 +1,12 @@
 {
 	"properties": {
+		"host": {
+			"type": "string",
+			"description": "Host for the server to listen on"
+		},
 		"port": {
 			"type": "integer",
-			"description": "Port for the server to listen to"
+			"description": "Port for the server to listen on"
 		},
 		"registrations": {
 			"type": "string",
