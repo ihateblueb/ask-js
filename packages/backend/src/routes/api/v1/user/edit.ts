@@ -29,6 +29,9 @@ export default plugin(async (fastify) => {
 					type: ['string', 'null'],
 					minLength: 1,
 					maxLength: 8192
+				},
+				acceptingAsks: {
+					type: ['boolean', 'null']
 				}
 			}
 		}
@@ -74,7 +77,8 @@ export default plugin(async (fastify) => {
 					displayName: SanitizerService.sanitize(
 						req.body.displayName
 					),
-					prompt: SanitizerService.sanitize(req.body.prompt)
+					prompt: SanitizerService.sanitize(req.body.prompt),
+					acceptingAsks: req.body.acceptingAsks
 				}
 			);
 

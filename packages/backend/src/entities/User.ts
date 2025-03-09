@@ -21,7 +21,7 @@ export class User {
 	approved: boolean;
 
 	@Column({ default: true })
-	acceptAsks: boolean;
+	acceptingAsks: boolean;
 
 	@Column({ default: true })
 	showResponses: boolean;

@@ -13,7 +13,8 @@
 	let values = $state({
 		avatar: undefined,
 		displayName: undefined,
-		prompt: undefined
+		prompt: undefined,
+		acceptingAsks: true
 	});
 
 	const query = createQuery({
@@ -93,6 +94,15 @@
 					placeholder="Ask me anything!"
 					bind:value={values.prompt}
 				></textarea>
+
+				<div class="check">
+					<input
+						type="checkbox"
+						id="user_edit_acceptingAsks"
+						bind:checked={values.acceptingAsks}
+					/>
+					<label for="user_edit_acceptingAsks">Accept asks</label>
+				</div>
 
 				<button class={'btn'} onclick={() => submit()}>Submit</button>
 			</div>

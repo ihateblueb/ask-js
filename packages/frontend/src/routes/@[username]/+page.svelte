@@ -67,7 +67,7 @@
 			</div>
 		</div>
 
-		<AskForm userId={$query.data.id} />
+		<AskForm user={$query.data} />
 
 		<div class="timeline">
 			<h2>Asks</h2>

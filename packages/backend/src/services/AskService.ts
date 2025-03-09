@@ -47,6 +47,13 @@ class AskService {
 				message: 'User not found'
 			};
 
+		if (!toUser.acceptingAsks)
+			return {
+				error: true,
+				status: 403,
+				message: 'User not accepting asks'
+			};
+
 		const id = IdService.generate();
 
 		const ask = {

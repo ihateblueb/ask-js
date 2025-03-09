@@ -413,7 +413,7 @@ label {
 			margin-bottom: 5px;
 		}
 
-		input,
+		input:not([type="checkbox"]),
 		textarea {
 			width: 100%;
 		}
@@ -421,6 +421,17 @@ label {
 		textarea {
 			min-height: 65px;
 			resize: vertical;
+		}
+
+		.check {
+			display: flex;
+			align-items: center;
+			padding: 5px 0;
+			gap: 5px;
+
+			label {
+				margin-top: 0;
+			}
 		}
 	}
 }
