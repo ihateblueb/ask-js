@@ -13,7 +13,6 @@
 	console.log(props.data);
 
 	let selfParsed = parsedLocalStore.self;
-	let refresh = $state(0);
 
 	const query = createQuery({
 		queryKey: ['user_' + props.data.username],
@@ -22,12 +21,8 @@
 	});
 
 	$effect(() => {
-		if (props.data.username !== $query.data?.username) {
-			$query.refetch().then(() => {
-				refresh++;
-			});
-		}
-	});
+		if (props.data.username !== $query.data?.username) $query.refetch()
+	})
 </script>
 
 <svelte:head>
@@ -50,42 +45,40 @@
 	/>
 {:else if $query.isSuccess}
 	{#key $query.data}
-		<div>
-			<div class="prompt">
-				<div class="left">
-					<Avatar user={$query.data} size={45} />
-				</div>
-				<div class="right">
-					<div class="inner">
-						<p>
-							{#if $query.data?.prompt}{$query.data
-									?.prompt}{:else}<i>No prompt</i>{/if}
-						</p>
-						<i class="username"
-							>- {$query.data?.displayName ??
-								'@' + $query.data.username}</i
-						>
-					</div>
-				</div>
-				<div class="farRight">
-					{#if selfParsed && (selfParsed.admin || selfParsed.id === $query.data.id)}
-						<a
-							class="btn"
-							href={'/@' + $query.data.username + '/edit'}
-						>
-							<IconPencil size="18px" /> Edit
-						</a>
-					{/if}
+	<div>
+		<div class="prompt">
+			<div class="left">
+				<Avatar user={$query.data} size={45} />
+			</div>
+			<div class="right">
+				<div class="inner">
+					<p>
+						{#if $query.data?.prompt}{$query.data?.prompt}{:else}<i
+								>No prompt</i
+							>{/if}
+					</p>
+					<i class="username"
+						>- {$query.data?.displayName ??
+							'@' + $query.data.username}</i
+					>
 				</div>
 			</div>
-
-			<AskForm user={$query.data} />
-
-			<div class="timeline">
-				<h2>Asks</h2>
-				<UserTimeline userId={$query.data.id} />
+			<div class="farRight">
+				{#if selfParsed && (selfParsed.admin || selfParsed.id === $query.data.id)}
+					<a class="btn" href={'/@' + $query.data.username + '/edit'}>
+						<IconPencil size="18px" /> Edit
+					</a>
+				{/if}
 			</div>
 		</div>
+
+		<AskForm user={$query.data} />
+
+		<div class="timeline">
+			<h2>Asks</h2>
+			<UserTimeline userId={$query.data.id} />
+		</div>
+	</div>
 	{/key}
 {/if}
 
