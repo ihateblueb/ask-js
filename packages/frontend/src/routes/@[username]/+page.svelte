@@ -13,6 +13,7 @@
 	console.log(props.data);
 
 	let selfParsed = parsedLocalStore.self;
+	let refresh = $state(0)
 
 	const query = createQuery({
 		queryKey: ['user_' + props.data.username],
@@ -21,7 +22,11 @@
 	});
 
 	$effect(() => {
-		if (props.data.username !== $query.data?.username) $query.refetch()
+		if (props.data.username !== $query.data?.username) {
+			$query.refetch().then(() => {
+				refresh++
+			})
+		}
 	})
 </script>
 
@@ -75,7 +80,9 @@
 
 		<div class="timeline">
 			<h2>Asks</h2>
-			<UserTimeline userId={$query.data.id} />
+			{#key refresh}
+				<UserTimeline userId={$query.data.id} />
+			{/key}
 		</div>
 	</div>
 {/if}
