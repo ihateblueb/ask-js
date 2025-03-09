@@ -31,11 +31,13 @@ USER app:app
 
 FROM web-pnpm AS web-deps
 RUN --mount=type=cache,target=/app/.local/share/pnpm,uid=1001,gid=1001,sharing=locked \
-    pnpm install --prod
+	--mount=type=cache,target=/app/pnpm/store,uid=1001,gid=1001,sharing=locked \
+    pnpm install --prod --frozen-lockfile
 
 
 FROM web-pnpm AS web-build-base
 RUN --mount=type=cache,target=/app/.local/share/pnpm,uid=1001,gid=1001,sharing=locked \
+	--mount=type=cache,target=/app/pnpm/store,uid=1001,gid=1001,sharing=locked \
     --mount=type=cache,target=/app/node_modules,uid=1001,gid=1001 \
     --mount=type=cache,target=/app/packages/backend/node_modules,uid=1001,gid=1001 \
     --mount=type=cache,target=/app/packages/frontend/node_modules,uid=1001,gid=1001 \
@@ -51,6 +53,7 @@ COPY --chown=1001:1001 ./packages/backend/tsconfig.json /app/packages/backend/
 COPY --chown=1001:1001 ./packages/backend/src /app/packages/backend/src/
 
 RUN --mount=type=cache,target=/app/.local/share/pnpm,uid=1001,gid=1001 \
+	--mount=type=cache,target=/app/pnpm/store,uid=1001,gid=1001,sharing=locked \
     --mount=type=cache,target=/app/node_modules,uid=1001,gid=1001 \
     --mount=type=cache,target=/app/packages/backend/node_modules,uid=1001,gid=1001 \
     pnpm run build
@@ -68,6 +71,7 @@ COPY --chown=1001:1001 ./packages/frontend/static /app/packages/frontend/static/
 COPY --chown=1001:1001 ./packages/frontend/src /app/packages/frontend/src/
 
 RUN --mount=type=cache,target=/app/.local/share/pnpm,uid=1001,gid=1001 \
+	--mount=type=cache,target=/app/pnpm/store,uid=1001,gid=1001,sharing=locked \
     --mount=type=cache,target=/app/node_modules,uid=1001,gid=1001 \
     --mount=type=cache,target=/app/packages/frontend/node_modules,uid=1001,gid=1001 \
     pnpm run build
