@@ -82,14 +82,16 @@
 {:else if $query.isSuccess}
 	<div class="tl directory">
 		{#each $query.data as user}
-			<div class="userCard">
-				<Avatar {user} size="40" />
-				<a class="subtle" href={'/@' + user.username}
-					>{user.displayName ?? user.username}<br /><small
-						>{'@' + user.username + ''}</small
-					></a
-				>
-			</div>
+			{#if user.approved}
+				<div class="userCard">
+					<Avatar {user} size="40" />
+					<a class="subtle" href={'/@' + user.username}
+						>{user.displayName ?? user.username}<br /><small
+							>{'@' + user.username + ''}</small
+						></a
+					>
+				</div>
+			{/if}
 		{/each}
 	</div>
 {/if}

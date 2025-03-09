@@ -93,7 +93,12 @@
 			</div>
 		</main>
 		<footer>
-			<p><b>AskJS</b>{metaParsed?.version ? " v"+metaParsed?.version : ""} &bull; <a href="https://github.com/ihateblueb/ask-js">Source</a></p>
+			<p>
+				<b>AskJS</b>{metaParsed?.version
+					? ' v' + metaParsed?.version
+					: ''} &bull;
+				<a href="https://github.com/ihateblueb/ask-js">Source</a>
+			</p>
 		</footer>
 	</div>
 </QueryClientProvider>

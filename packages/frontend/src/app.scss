@@ -312,7 +312,10 @@ label {
 
 		box-sizing: border-box;
 		background-color: var(--bg-2);
+		box-shadow: 0 0 10px var(--bg-1);
 		width: 100%;
+
+		z-index: 100;
 
 		.inner {
 			display: flex;
