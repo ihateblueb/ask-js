@@ -56,6 +56,7 @@
 	async function submitComment() {
 		await sendAskComment(props.data.askid, comment).then(() => {
 			$commentQuery.refetch();
+			comment = ''
 		});
 	}
 

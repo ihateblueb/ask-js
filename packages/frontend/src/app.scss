@@ -65,6 +65,9 @@ body {
 	color: var(--tx-2);
 	margin: 0;
 
+	height: 100vh;
+
+	overflow-y: scroll;
 	overflow-x: hidden;
 
 	font-family: system-ui;
@@ -229,6 +232,7 @@ small {
 	height: 50px;
 	width: max-content;
 	background: none;
+	overflow: clip;
 
 	&.short {
 		height: 45px;
@@ -251,14 +255,15 @@ small {
 
 	.bar {
 		position: absolute;
+		bottom: 0;
 		opacity: 0;
 		width: 0;
-		height: 4px;
+
 		border-radius: 99px;
 		background-color: var(--ac-1);
-		min-width: 6px;
 
-		bottom: 0;
+		height: 4px;
+		min-width: 6px;
 	}
 
 	&.selected {
@@ -302,8 +307,11 @@ label {
 		justify-content: center;
 		height: 50px;
 
+		position: sticky;
+		top: 0;
+
 		box-sizing: border-box;
-		background: var(--bg-2);
+		background-color: var(--bg-2);
 		width: 100%;
 
 		.inner {

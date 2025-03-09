@@ -151,7 +151,7 @@
 		color: var(--tx-2);
 
 		gap: 10px;
-		padding: 15px;
+		padding: 10px;
 		border-radius: 7px;
 		overflow: clip;
 
