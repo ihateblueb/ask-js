@@ -19,6 +19,10 @@
 		retry: false,
 		queryFn: async () => await lookupUser(props.data.username)
 	});
+
+	$effect(() => {
+		if (props.data.username !== $query.data?.username) $query.refetch()
+	})
 </script>
 
 <svelte:head>

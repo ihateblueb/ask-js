@@ -30,7 +30,7 @@
 	});
 
 	const toQuery = createQuery({
-		queryKey: ['ask_user_' + ($query?.data?.to ?? undefined)],
+		queryKey: ['ask_user_' + ($query.data?.to ?? undefined)],
 		retry: false,
 		queryFn: async () => await getUser($query?.data?.to ?? undefined)
 	});
