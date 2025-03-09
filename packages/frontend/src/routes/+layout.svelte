@@ -21,6 +21,7 @@
 
 	store.unreadNotifications.subscribe((e) => {
 		unreadNotifications = e;
+		console.log('[unreadNotifications]', e);
 	});
 </script>
 
