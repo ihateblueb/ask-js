@@ -19,7 +19,7 @@
 	function copyAsk() {
 		navigator.clipboard.writeText(`> ${data.content}
 
-${data.response}
+${submittedResponse ? response : data.response}
 
 ${page.url.protocol + '//' + page.url.host + '/ask/' + data.id}`);
 	}
