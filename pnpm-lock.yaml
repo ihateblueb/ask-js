@@ -92,6 +92,10 @@ importers:
         version: 3.1.1
 
   packages/frontend:
+    dependencies:
+      vite:
+        specifier: ^6.0.0
+        version: 6.1.1(@types/node@22.13.4)(sass@1.85.0)(yaml@2.7.0)
     devDependencies:
       '@sveltejs/adapter-auto':
         specifier: ^4.0.0
@@ -129,9 +133,6 @@ importers:
       typescript:
         specifier: ^5.0.0
         version: 5.7.3
-      vite:
-        specifier: ^6.0.0
-        version: 6.1.1(@types/node@22.13.4)(sass@1.85.0)(yaml@2.7.0)
 
 packages:
 
