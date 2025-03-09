@@ -91,10 +91,9 @@
 						</p>
 					{/if}
 
-					{#if object.read}
-						<div class="read" title="read">
-							<IconCheck size="18px" />
-						</div>
+					{#if !object.read}
+						<span class="unread" title="Unread">
+						</span>
 					{/if}
 				{/snippet}
 				{#snippet body(object)}
@@ -168,12 +167,15 @@
 				}
 			}
 
-			.read {
+			.unread {
 				display: flex;
-				display: flex;
-				align-items: center;
 				justify-content: flex-end;
-				flex-grow: 1;
+				align-items: flex-end;
+
+				height: 10px;
+				width: 10px;
+				background-color: var(--ac-1);
+				border-radius: 99px;
 			}
 		}
 

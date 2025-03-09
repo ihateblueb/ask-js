@@ -26,14 +26,6 @@
 			</Tab>
 			<Tab
 				short
-				href={'/admin/settings'}
-				selected={page.url.pathname === '/admin/settings'}
-			>
-				<IconSettings size="18px" />
-				Settings
-			</Tab>
-			<Tab
-				short
 				href={'/admin/invites'}
 				selected={page.url.pathname === '/admin/invites'}
 			>
