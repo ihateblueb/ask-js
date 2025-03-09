@@ -32,6 +32,9 @@ export default plugin(async (fastify) => {
 				},
 				acceptingAsks: {
 					type: ['boolean', 'null']
+				},
+				showResponses: {
+					type: ['boolean', 'null']
 				}
 			}
 		}
@@ -66,7 +69,9 @@ export default plugin(async (fastify) => {
 				{
 					avatar: req.body.avatar,
 					displayName: req.body.displayName,
-					prompt: req.body.prompt
+					prompt: req.body.prompt,
+					acceptingAsks: req.body.acceptingAsks,
+					showResponses: req.body.showResponses
 				}
 			);
 
@@ -78,7 +83,8 @@ export default plugin(async (fastify) => {
 						req.body.displayName
 					),
 					prompt: SanitizerService.sanitize(req.body.prompt),
-					acceptingAsks: req.body.acceptingAsks
+					acceptingAsks: req.body.acceptingAsks,
+					showResponses: req.body.showResponses
 				}
 			);
 

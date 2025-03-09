@@ -14,7 +14,8 @@
 		avatar: undefined,
 		displayName: undefined,
 		prompt: undefined,
-		acceptingAsks: true
+		acceptingAsks: true,
+		showResponses: true
 	});
 
 	const query = createQuery({
@@ -102,6 +103,15 @@
 						bind:checked={values.acceptingAsks}
 					/>
 					<label for="user_edit_acceptingAsks">Accept asks</label>
+				</div>
+
+				<div class="check">
+					<input
+						type="checkbox"
+						id="user_edit_showResponses"
+						bind:checked={values.showResponses}
+					/>
+					<label for="user_edit_showResponses">Show responses to asks</label>
 				</div>
 
 				<button class={'btn'} onclick={() => submit()}>Submit</button>

@@ -3,6 +3,7 @@ import { FromSchema } from 'json-schema-to-ts';
 import { In, IsNull, LessThan, Not } from 'typeorm';
 import TimelineService from '../../../../services/TimelineService.js';
 import AskRenderer from '../../../../services/renderers/AskRenderer.js';
+import UserService from '../../../../services/UserService.js';
 
 export default plugin(async (fastify) => {
 	const schema = {
@@ -33,6 +34,13 @@ export default plugin(async (fastify) => {
 			preHandler: fastify.auth([fastify.optionalAuth])
 		},
 		async (req, reply) => {
+			const user = await UserService.get({ id: req.params.id });
+
+			if (!user.showResponses && req.auth?.user !== user.id)
+				return reply.status(403).send({
+					message: 'User has responses hidden'
+				});
+
 			let where = {
 				to: req.params.id
 			};
