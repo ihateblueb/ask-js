@@ -8,7 +8,12 @@ export default plugin(async (fastify) => {
 		body: {
 			type: 'object',
 			properties: {
-				username: { type: 'string', minLength: 1, maxLength: 100 },
+				username: {
+					type: 'string',
+					minLength: 1,
+					maxLength: 100,
+					pattern: '^[a-zA-Z0-9]+$'
+				},
 				password: { type: 'string', minLength: 1, maxLength: 72 },
 				invite: { type: 'string' }
 			}
