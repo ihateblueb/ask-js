@@ -80,8 +80,7 @@ RUN mkdir -p /app/packages/backend /app/packages/frontend
 
 COPY --from=web-deps /app/node_modules /app/node_modules
 COPY --from=web-deps /app/packages/backend/node_modules /app/packages/backend/node_modules
-# uncomment when frontend('s node part) gets non-dev dependencies
-#COPY --from=web-deps /app/packages/frontend/node_modules /app/packages/frontend/node_modules
+COPY --from=web-deps /app/packages/frontend/node_modules /app/packages/frontend/node_modules
 COPY --from=web-build-backend /app/packages/backend/built /app/packages/backend/built
 COPY --from=web-build-frontend /app/packages/frontend/build /app/packages/frontend/build
 
