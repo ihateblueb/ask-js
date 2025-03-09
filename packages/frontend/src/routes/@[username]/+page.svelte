@@ -5,25 +5,20 @@
 	import UserTimeline from '$lib/components/UserTimeline.svelte';
 	import Avatar from '$lib/components/Avatar.svelte';
 	import { IconPencil } from '@tabler/icons-svelte';
-	import localStore from '$lib/localStore.js';
 	import Loading from '$lib/components/Loading.svelte';
 	import Error from '$lib/components/Error.svelte';
+	import parsedLocalStore from '$lib/parsedLocalStore.js';
 
 	let props = $props();
 	console.log(props.data);
+
+	let selfParsed = parsedLocalStore.self;
 
 	const query = createQuery({
 		queryKey: ['user_' + props.data.username],
 		retry: false,
 		queryFn: async () => await lookupUser(props.data.username)
 	});
-
-	let selfRaw = localStore.get('self');
-	let selfParsed = undefined;
-
-	try {
-		selfParsed = JSON.parse(selfRaw);
-	} catch {}
 </script>
 
 <svelte:head>
@@ -53,9 +48,9 @@
 			<div class="right">
 				<div class="inner">
 					<p>
-						"{#if $query.data?.prompt}{$query.data?.prompt}{:else}<i
+						{#if $query.data?.prompt}{$query.data?.prompt}{:else}<i
 								>No prompt</i
-							>{/if}"
+							>{/if}
 					</p>
 					<i class="username"
 						>- {$query.data?.displayName ??

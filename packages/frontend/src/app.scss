@@ -283,8 +283,7 @@ label {
 	justify-content: center;
 	align-items: center;
 
-	width: 100vw;
-	height: 100vh;
+	box-sizing: border-box;
 
 	main {
 		max-width: 675px;
@@ -292,7 +291,7 @@ label {
 		width: 100%;
 
 		padding: 16px;
-		height: calc(100vh - 50px);
+		height: 100%;
 
 		box-sizing: border-box;
 	}
@@ -303,6 +302,7 @@ label {
 		justify-content: center;
 		height: 50px;
 
+		box-sizing: border-box;
 		background: var(--bg-2);
 		width: 100%;
 
@@ -323,6 +323,18 @@ label {
 				display: flex;
 			}
 		}
+	}
+
+	footer {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
+
+		width: 100%;
+		padding: 15px;
+		box-sizing: border-box;
+		color: var(--tx-3);
 	}
 }
 
@@ -410,7 +422,8 @@ label {
 	margin-bottom: 10px;
 	box-sizing: border-box;
 
-	h2,.header {
+	h2,
+	.header {
 		margin-bottom: 5px;
 	}
 

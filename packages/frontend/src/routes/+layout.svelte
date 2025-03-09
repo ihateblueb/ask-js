@@ -4,22 +4,24 @@
 	import queryClient from '$lib/queryClient.js';
 	import localStore from '$lib/localStore.js';
 	import Avatar from '$lib/components/Avatar.svelte';
-	import { IconBell, IconDashboard, IconInbox, IconLogout } from '@tabler/icons-svelte';
+	import {
+		IconBell,
+		IconDashboard,
+		IconInbox,
+		IconLogout
+	} from '@tabler/icons-svelte';
 	import Tab from '$lib/components/Tab.svelte';
 	import store from '$lib/store.js';
+	import parsedLocalStore from '$lib/parsedLocalStore.js';
 
-	let selfRaw = localStore.get('self');
-	let selfParsed = undefined;
+	let selfParsed = parsedLocalStore.self;
+	let metaParsed = parsedLocalStore.meta;
 
-	try {
-		selfParsed = JSON.parse(selfRaw);
-	} catch {}
-
-	let unreadNotifications = $state(0)
+	let unreadNotifications = $state(0);
 
 	store.unreadNotifications.subscribe((e) => {
-		unreadNotifications = e
-	})
+		unreadNotifications = e;
+	});
 </script>
 
 <QueryClientProvider client={queryClient}>
@@ -90,6 +92,9 @@
 				<slot></slot>
 			</div>
 		</main>
+		<footer>
+			<p><b>AskJS</b> v{metaParsed?.version} &bull; <a href="https://github.com/ihateblueb/ask-js">Source</a></p>
+		</footer>
 	</div>
 </QueryClientProvider>
 

@@ -4,11 +4,14 @@
 	import Error from '$lib/components/Error.svelte';
 	import getNotifications from '$lib/api/getNotifications.js';
 	import {
-		IconArrowBackUp, IconCheck, IconChecks,
+		IconArrowBackUp,
+		IconCheck,
+		IconChecks,
 		IconMailQuestion,
 		IconMessage,
 		IconMessage2Question,
-		IconMessageQuestion, IconQuestionMark
+		IconMessageQuestion,
+		IconQuestionMark
 	} from '@tabler/icons-svelte';
 	import readNotifications from '$lib/api/readNotifications.js';
 	import store from '$lib/store';
@@ -20,7 +23,10 @@
 			await getNotifications(pageParam, true),
 		initialPageParam: undefined,
 		getNextPageParam: (lastPage) => {
-			console.log('[user_notifications] lastTlObj', lastPage?.at(-1).createdAt);
+			console.log(
+				'[user_notifications] lastTlObj',
+				lastPage?.at(-1).createdAt
+			);
 			return lastPage ? lastPage.at(-1).createdAt : undefined;
 		}
 	});
@@ -51,13 +57,16 @@
 	<div class="tl">
 		<div class="header">
 			<h2>Notifications</h2>
-			<button class="btn" onclick={() => {
-				readNotifications().then(() => {
-					$query.refetch().then(() => {
-						store.unreadNotifications.set($query.data.length)
+			<button
+				class="btn"
+				onclick={() => {
+					readNotifications().then(() => {
+						$query.refetch().then(() => {
+							store.unreadNotifications.set($query.data.length);
+						});
 					});
-				})
-			}}>
+				}}
+			>
 				<IconChecks size="18px" />
 				Mark read
 			</button>
@@ -72,15 +81,20 @@
 					{:else if object.type === 'comment'}
 						<IconArrowBackUp size="18px" />
 						<p>
-							<a class="subtle" href={"/@"+object.comment.user.username}>{object.comment.user.displayName ?? object.comment.user.username}</a>
+							<a
+								class="subtle"
+								href={'/@' + object.comment.user.username}
+								>{object.comment.user.displayName ??
+									object.comment.user.username}</a
+							>
 							<span dir="ltr"> commented on your response</span>
 						</p>
 					{/if}
 
 					{#if object.read}
-					<div class="read" title="read">
+						<div class="read" title="read">
 							<IconCheck size="18px" />
-					</div>
+						</div>
 					{/if}
 				{/snippet}
 				{#snippet body(object)}
@@ -92,11 +106,12 @@
 				{/snippet}
 				{#snippet action(object)}
 					{#if object.type === 'ask'}
-						<a class="btn tertiary" href="/inbox">
-							Open Inbox
-						</a>
+						<a class="btn tertiary" href="/inbox"> Open Inbox </a>
 					{:else if object.type === 'comment'}
-						<a class="btn tertiary" href={"/ask/"+object.comment.commentingOn.id}>
+						<a
+							class="btn tertiary"
+							href={'/ask/' + object.comment.commentingOn.id}
+						>
 							Open Ask
 						</a>
 					{/if}

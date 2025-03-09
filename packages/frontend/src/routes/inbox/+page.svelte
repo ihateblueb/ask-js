@@ -2,17 +2,11 @@
 	import { createInfiniteQuery, createQuery } from '@tanstack/svelte-query';
 	import getMyTimeline from '$lib/api/getMyTimeline.js';
 	import AskAndResponse from '$lib/components/AskAndResponse.svelte';
-	import localStore from '$lib/localStore.js';
 	import Loading from '$lib/components/Loading.svelte';
 	import Error from '$lib/components/Error.svelte';
-	import getUserTimeline from '$lib/api/getUserTimeline.js';
+	import parsedLocalStore from '$lib/parsedLocalStore.js';
 
-	let selfRaw = localStore.get('self');
-	let selfParsed = undefined;
-
-	try {
-		selfParsed = JSON.parse(selfRaw);
-	} catch {}
+	let selfParsed = parsedLocalStore.self;
 
 	const query = createInfiniteQuery({
 		queryKey: ['user_inbox'],

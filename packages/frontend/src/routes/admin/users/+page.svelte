@@ -10,13 +10,9 @@
 		IconTrash,
 		IconX
 	} from '@tabler/icons-svelte';
-	import { createInfiniteQuery } from '@tanstack/svelte-query';
-	import getInvites from '$lib/api/getInvites.js';
 	import { createQuery } from '@tanstack/svelte-query';
 	import getAllUsers from '$lib/api/getAllUsers.js';
 	import Avatar from '$lib/components/Avatar.svelte';
-	import approveUser from '$lib/api/enableUser.js';
-	import unapproveUser from '$lib/api/disableUser.js';
 	import enableUser from '$lib/api/enableUser.js';
 	import disableUser from '$lib/api/disableUser.js';
 	import Loading from '$lib/components/Loading.svelte';

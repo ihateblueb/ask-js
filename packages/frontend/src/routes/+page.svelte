@@ -6,7 +6,12 @@
 	import Loading from '$lib/components/Loading.svelte';
 	import Error from '$lib/components/Error.svelte';
 	import getMeta from '$lib/api/getMeta.js';
-	import { IconArrowBackUp, IconMessage, IconMessageReply, IconUser } from '@tabler/icons-svelte';
+	import {
+		IconArrowBackUp,
+		IconMessage,
+		IconMessageReply,
+		IconUser
+	} from '@tabler/icons-svelte';
 
 	const query = createQuery({
 		queryKey: ['userlist'],

@@ -21,7 +21,7 @@
 		<slot></slot>
 		{#if count > 0}
 			<span class="count">
-				{count > 9 ? "9+" : count}
+				{count > 9 ? '9+' : count}
 			</span>
 		{/if}
 		<span class="bar" in:slide|global={{ duration: 150, axis: 'x' }}></span>
@@ -37,7 +37,7 @@
 		<slot></slot>
 		{#if count > 0}
 			<span class="count">
-				{count > 9 ? "9+" : count}
+				{count > 9 ? '9+' : count}
 			</span>
 		{/if}
 		<span class="bar" in:slide|global={{ duration: 150, axis: 'x' }}></span>

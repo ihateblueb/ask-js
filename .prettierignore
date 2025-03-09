@@ -16,3 +16,6 @@ pnpm-lock.yaml
 .gitignore
 .prettierignore
 *.png
+Dockerfile
+cosign.pub
+cosign.key

@@ -14,16 +14,12 @@
 	import { IconTrash } from '@tabler/icons-svelte';
 	import deleteAskComment from '$lib/api/deleteAskComment.js';
 	import localStore from '$lib/localStore.js';
+	import parsedLocalStore from '$lib/parsedLocalStore.js';
 
 	let props = $props();
 	console.log(props.data);
 
-	let selfRaw = localStore.get('self');
-	let selfParsed = undefined;
-
-	try {
-		selfParsed = JSON.parse(selfRaw);
-	} catch {}
+	let selfParsed = parsedLocalStore.self;
 
 	let comment = $state('');
 
