@@ -30,6 +30,8 @@
 	<title></title>
 </svelte:head>
 
+<h2>Server Statistics</h2>
+
 {#if $metaQuery.isLoading}
 	<Loading />
 {:else if $metaQuery.isError}
@@ -68,7 +70,7 @@
 	</div>
 {/if}
 
-<h2>User directory</h2>
+<h2>User Directory</h2>
 
 {#if $query.isLoading}
 	<Loading />
@@ -80,7 +82,7 @@
 		retry={() => $query.refetch()}
 	/>
 {:else if $query.isSuccess}
-	<div class="tl directory">
+	<div class="directory">
 		{#each $query.data as user}
 			{#if user.approved}
 				<div class="userCard">
@@ -97,10 +99,15 @@
 {/if}
 
 <style>
+	h2 {
+		margin-bottom: 10px;
+	}
+
 	.stats {
 		display: flex;
 		flex-wrap: wrap;
 		gap: 10px;
+
 		margin-bottom: 15px;
 
 		.stat {
@@ -126,15 +133,26 @@
 	}
 
 	.directory {
-		margin-top: 10px;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
 
 		.userCard {
 			display: flex;
 			align-items: center;
 			gap: 10px;
 
-			a {
+			width: calc(50% - 10px);
+			box-sizing: border-box;
+
+
+			@media (max-width: 535px) {
 				width: 100%;
+			}
+
+			a {
+				flex-grow: 1;
+				box-sizing: border-box;
 
 				text-overflow: ellipsis;
 				white-space: nowrap;

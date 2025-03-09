@@ -92,8 +92,7 @@
 					{/if}
 
 					{#if !object.read}
-						<span class="unread" title="Unread">
-						</span>
+						<span class="unread" title="Unread"> </span>
 					{/if}
 				{/snippet}
 				{#snippet body(object)}
