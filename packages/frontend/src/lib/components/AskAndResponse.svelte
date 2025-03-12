@@ -9,6 +9,7 @@
 		IconTrash,
 		IconWorld
 	} from '@tabler/icons-svelte';
+	import Avatar from '$lib/components/Avatar.svelte';
 
 	let {
 		data,
@@ -83,9 +84,13 @@ ${page.url.protocol + '//' + page.url.host + '/ask/' + data.id}`);
 				</button>
 			{/if}
 			{#if onAdminPage}
-				<p>
-					To <a href={'/@' + data.to.username}>@{data.to.username}</a>
-				</p>
+				<div class="to">
+					<Avatar user={data.to} />
+					<p>
+						<small>Asked to</small>
+						<a href={'/@' + data.to.username}>@{data.to.username}</a>
+					</p>
+				</div>
 			{/if}
 
 			<div class="end">
@@ -188,5 +193,11 @@ ${page.url.protocol + '//' + page.url.host + '/ask/' + data.id}`);
 				}
 			}
 		}
+	}
+
+	.to {
+		display: flex;
+		align-items: center;
+		gap: 10px;
 	}
 </style>

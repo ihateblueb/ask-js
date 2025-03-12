@@ -23,6 +23,18 @@ if (browser) {
 	Https.get('/api/v1/meta').then((e) => {
 		localStore.set('meta', JSON.stringify(e));
 	});
+
+	let blurred = false;
+
+	window.onblur = () => {
+		blurred = true;
+	};
+	window.onfocus = () => {
+		if (blurred) {
+			blurred = false;
+			updateNotificationCount();
+		}
+	};
 }
 
 function updateNotificationCount() {
