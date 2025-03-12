@@ -30,7 +30,7 @@ fastify
 
 		if (req.url && !req.url.startsWith('/_app'))
 			LoggerService.http(
-				`-->	${req.method.toLowerCase()} ${req.url} ${chalk.gray('(' + req.id + ')')}`
+				`-->	${req.method.toLowerCase()}	${req.url} ${chalk.gray('(' + req.id + ')')}`
 			);
 
 		done();
@@ -38,7 +38,7 @@ fastify
 	.addHook('onResponse', (req, reply, done) => {
 		if (req.url && !req.url.startsWith('/_app'))
 			LoggerService.http(
-				`<--	${req.method.toLowerCase()} ${req.url} ${reply.statusCode} ${chalk.gray('(' + req.id + ')')}`
+				`<--	${req.method.toLowerCase()}	${req.url} ${reply.statusCode} ${chalk.gray('(' + req.id + ')')}`
 			);
 
 		done();
