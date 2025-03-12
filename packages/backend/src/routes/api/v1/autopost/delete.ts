@@ -37,8 +37,9 @@ export default plugin(async (fastify) => {
 			});
 
 			if (
-				target.user !== req.auth.user ||
-				(requestingUser && !requestingUser.admin)
+				target.user !== req.auth.user &&
+				requestingUser &&
+				!requestingUser.admin
 			)
 				return reply.status(404).send({
 					message: 'Target not found'

@@ -143,7 +143,7 @@
 								<p>{data.content}</p>
 							</div>
 						</div>
-						{#if selfParsed && (selfParsed?.admin || selfParsed?.id === data.user.id || $query.data.to === selfParsed?.id)}
+						{#if selfParsed && (selfParsed?.admin || selfParsed?.id === data.user.id || $query.data.to.id === selfParsed?.id)}
 							<div class="footer btnCtn">
 								<button
 									class="btn danger"
