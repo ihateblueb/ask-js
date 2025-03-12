@@ -47,7 +47,7 @@ export default plugin(async (fastify) => {
 			});
 
 			if (
-				ask.to !== req.auth.user ||
+				ask.to.id !== req.auth.user ||
 				(requestingUser && !requestingUser.admin) ||
 				comment.user.id !== req.auth.user
 			)

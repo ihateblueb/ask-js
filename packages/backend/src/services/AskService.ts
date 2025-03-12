@@ -10,6 +10,7 @@ class AskService {
 		return await db
 			.getRepository('ask')
 			.createQueryBuilder('ask')
+			.leftJoinAndSelect('ask.to', 'to')
 			.where(where)
 			.getOne();
 	}
@@ -18,6 +19,7 @@ class AskService {
 		return await db
 			.getRepository('ask')
 			.createQueryBuilder('ask')
+			.leftJoinAndSelect('ask.to', 'to')
 			.where(where)
 			.orderBy(order, 'DESC')
 			.take(take ?? 45)
@@ -58,7 +60,7 @@ class AskService {
 
 		const ask = {
 			id: id,
-			to: SanitizerService.sanitize(to),
+			toId: SanitizerService.sanitize(to),
 			content: SanitizerService.sanitize(content),
 			visibility: visibility,
 			cw: SanitizerService.sanitize(cw),
@@ -70,7 +72,7 @@ class AskService {
 
 		await NotificationService.create(
 			'ask',
-			ask.to,
+			ask.toId,
 			undefined,
 			undefined,
 			id

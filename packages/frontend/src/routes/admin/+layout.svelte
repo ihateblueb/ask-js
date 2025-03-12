@@ -4,6 +4,7 @@
 	import {
 		IconDashboard,
 		IconMail,
+		IconMessage,
 		IconSettings,
 		IconUsers
 	} from '@tabler/icons-svelte';
@@ -39,6 +40,14 @@
 			>
 				<IconUsers size="18px" />
 				Users
+			</Tab>
+			<Tab
+				short
+				href={'/admin/asks'}
+				selected={page.url.pathname === '/admin/asks'}
+			>
+				<IconMessage size="18px" />
+				Asks
 			</Tab>
 		{/key}
 	</div>

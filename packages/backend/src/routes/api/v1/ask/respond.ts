@@ -38,7 +38,7 @@ export default plugin(async (fastify) => {
 					message: 'Ask not found'
 				});
 
-			if (ask.to !== req.auth.user)
+			if (ask.to.id !== req.auth.user)
 				return reply.status(404).send({
 					message: 'Ask not found'
 				});

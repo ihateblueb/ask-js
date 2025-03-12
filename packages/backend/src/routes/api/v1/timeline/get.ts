@@ -42,7 +42,7 @@ export default plugin(async (fastify) => {
 				});
 
 			let where = {
-				to: req.params.id
+				to: { id: req.params.id }
 			};
 
 			console.log(req.auth?.user, req.params.id);

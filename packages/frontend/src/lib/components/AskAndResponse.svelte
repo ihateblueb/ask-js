@@ -10,7 +10,12 @@
 		IconWorld
 	} from '@tabler/icons-svelte';
 
-	let { data, onResponsePage = false, detailed = false } = $props();
+	let {
+		data,
+		onResponsePage = false,
+		onAdminPage = false,
+		detailed = false
+	} = $props();
 
 	let response = $state('');
 	let submittedResponse = $state(false);
@@ -70,12 +75,17 @@ ${page.url.protocol + '//' + page.url.host + '/ask/' + data.id}`);
 			/>
 		{/if}
 	</div>
-	{#if onResponsePage}
+	{#if onResponsePage || onAdminPage}
 		<div class="btnCtn padded">
-			{#if !data.response && !submittedResponse}
+			{#if !data.response && !submittedResponse && !onAdminPage}
 				<button class="btn tertiary" onclick={() => respond()}>
 					Respond
 				</button>
+			{/if}
+			{#if onAdminPage}
+				<p>
+					To <a href={'/@' + data.to.username}>@{data.to.username}</a>
+				</p>
 			{/if}
 
 			<div class="end">

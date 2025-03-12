@@ -1,12 +1,25 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm';
+import typeorm, {
+	Entity,
+	Column,
+	PrimaryColumn,
+	ManyToOne,
+	JoinColumn
+} from 'typeorm';
+import { User } from './User.js';
 
 @Entity()
 export class Ask {
 	@PrimaryColumn()
 	id: string;
 
-	@Column()
-	to: string;
+	@Column({ select: false })
+	toId: string;
+
+	@ManyToOne(() => User, (user) => user, {
+		onDelete: 'CASCADE'
+	})
+	@JoinColumn({ name: 'toId' })
+	to: typeorm.Relation<User>;
 
 	@Column({ nullable: true })
 	cw: string;

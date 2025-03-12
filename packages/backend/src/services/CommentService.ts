@@ -48,7 +48,12 @@ class CommentService {
 
 		await db.getRepository('comment').insert(comment);
 
-		await NotificationService.create('comment', commentingOnAsk.to, as, id);
+		await NotificationService.create(
+			'comment',
+			commentingOnAsk.to.id,
+			as,
+			id
+		);
 
 		return {
 			error: false,

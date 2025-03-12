@@ -36,7 +36,7 @@ export default plugin(async (fastify) => {
 			});
 
 			if (
-				ask.to !== req.auth.user ||
+				ask.to.id !== req.auth.user ||
 				(requestingUser && !requestingUser.admin)
 			)
 				return reply.status(404).send({

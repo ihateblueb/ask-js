@@ -1,19 +1,14 @@
 <script>
 	import { createInfiniteQuery, createQuery } from '@tanstack/svelte-query';
-	import lookupUser from '$lib/api/lookupUser.js';
 	import getAsk from '$lib/api/getAsk.js';
 	import AskAndResponse from '$lib/components/AskAndResponse.svelte';
-	import getUser from '$lib/api/getUser.js';
 	import Avatar from '$lib/components/Avatar.svelte';
 	import Loading from '$lib/components/Loading.svelte';
 	import Error from '$lib/components/Error.svelte';
-	import getInvites from '$lib/api/getInvites.js';
 	import getAskComments from '$lib/api/getAskComments.js';
-	import sendAsk from '$lib/api/sendAsk.js';
 	import sendAskComment from '$lib/api/sendAskComment.js';
 	import { IconTrash } from '@tabler/icons-svelte';
 	import deleteAskComment from '$lib/api/deleteAskComment.js';
-	import localStore from '$lib/localStore.js';
 	import parsedLocalStore from '$lib/parsedLocalStore.js';
 
 	let props = $props();
@@ -27,12 +22,6 @@
 		queryKey: ['ask_' + props.data.askid],
 		retry: false,
 		queryFn: async () => await getAsk(props.data.askid)
-	});
-
-	const toQuery = createQuery({
-		queryKey: ['ask_user_' + ($query.data?.to ?? undefined)],
-		retry: false,
-		queryFn: async () => await getUser($query?.data?.to ?? undefined)
 	});
 
 	const commentQuery = createInfiniteQuery({
@@ -69,17 +58,15 @@
 
 <svelte:head>
 	{#if $query.isSuccess}
-		{#if $toQuery.isSuccess}
-			<title
-				>"{$query.data.content.substring(0, 18)}{$query.data.content
-					.length > 18
-					? '...'
-					: ''}" - {$query.data?.nickname ||
-				$query.data.nickname?.length > 0
-					? $query.data?.nickname
-					: 'Anonymous'}</title
-			>
-		{/if}
+		<title
+			>"{$query.data.content.substring(0, 18)}{$query.data.content
+				.length > 18
+				? '...'
+				: ''}" - {$query.data?.nickname ||
+			$query.data.nickname?.length > 0
+				? $query.data?.nickname
+				: 'Anonymous'}</title
+		>
 	{/if}
 </svelte:head>
 
@@ -94,22 +81,16 @@
 	/>
 {:else if $query.isSuccess}
 	<div class="to">
-		{#if $toQuery.isLoading}
-			<p>Loading ask recipient</p>
-		{:else if $toQuery.isError}
-			<p>Error loading ask recipient</p>
-		{:else if $toQuery.isSuccess}
-			<div class="left">
-				<Avatar user={$toQuery.data} size={45} />
-			</div>
-			<div class="right">
-				<p class="askedTo">Asked to</p>
-				<a class="name" href={'/@' + $toQuery.data.username}
-					>{$toQuery.data.displayName ?? $toQuery.data.username}
-					<span>(@{$toQuery.data.username})</span></a
-				>
-			</div>
-		{/if}
+		<div class="left">
+			<Avatar user={$query.data.to} size={45} />
+		</div>
+		<div class="right">
+			<p class="askedTo">Asked to</p>
+			<a class="name" href={'/@' + $query.data.to.username}
+				>{$query.data.to.displayName ?? $query.data.to.username}
+				<span>(@{$query.data.to.username})</span></a
+			>
+		</div>
 	</div>
 
 	<AskAndResponse data={$query.data} detailed />
