@@ -111,7 +111,9 @@
 						id="user_edit_showResponses"
 						bind:checked={values.showResponses}
 					/>
-					<label for="user_edit_showResponses">Show responses to asks</label>
+					<label for="user_edit_showResponses"
+						>Show responses to asks</label
+					>
 				</div>
 
 				<button class={'btn'} onclick={() => submit()}>Submit</button>

@@ -145,7 +145,6 @@
 			width: calc(50% - 10px);
 			box-sizing: border-box;
 
-
 			@media (max-width: 535px) {
 				width: 100%;
 			}

@@ -1,5 +1,9 @@
 <script>
-	import { createInfiniteQuery, createMutation, createQuery } from '@tanstack/svelte-query';
+	import {
+		createInfiniteQuery,
+		createMutation,
+		createQuery
+	} from '@tanstack/svelte-query';
 	import Loading from '$lib/components/Loading.svelte';
 	import Error from '$lib/components/Error.svelte';
 	import getNotifications from '$lib/api/getNotifications.js';
@@ -21,7 +25,7 @@
 		retry: false,
 		queryFn: async ({ pageParam }) =>
 			await getNotifications(pageParam, true).then(async (e) => {
-				updateCount(e)
+				updateCount(e);
 				return e;
 			}),
 		initialPageParam: undefined,
@@ -43,10 +47,12 @@
 	}
 
 	function updateCount(e) {
-		let data = e ?? $query.data?.pages[0]
+		let data = e ?? $query.data?.pages[0];
 		if (data) {
-			console.log('n/+p beep',data.filter(e => !e.read).length)
-			store.unreadNotifications.set(data.filter(e => !e.read).length ?? 0);
+			console.log('n/+p beep', data.filter((e) => !e.read).length);
+			store.unreadNotifications.set(
+				data.filter((e) => !e.read).length ?? 0
+			);
 		}
 	}
 </script>
@@ -73,7 +79,7 @@
 				onclick={() => {
 					readNotifications().then(() => {
 						$query.refetch().then(() => {
-							updateCount()
+							updateCount();
 						});
 					});
 				}}
