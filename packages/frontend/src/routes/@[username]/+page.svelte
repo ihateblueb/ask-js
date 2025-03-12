@@ -8,6 +8,7 @@
 	import Loading from '$lib/components/Loading.svelte';
 	import Error from '$lib/components/Error.svelte';
 	import parsedLocalStore from '$lib/parsedLocalStore.js';
+	import Mfm from '$lib/components/Mfm.svelte';
 
 	let props = $props();
 	console.log(props.data);
@@ -53,8 +54,11 @@
 				<div class="right">
 					<div class="inner">
 						<p>
-							{#if $query.data?.prompt}{$query.data
-									?.prompt}{:else}<i>No prompt</i>{/if}
+							{#if $query.data?.prompt}
+								<Mfm content={$query.data.prompt} />
+							{:else}
+								<i>No prompt</i>
+							{/if}
 						</p>
 						<i class="username"
 							>- {$query.data?.displayName ??

@@ -10,6 +10,7 @@
 		IconWorld
 	} from '@tabler/icons-svelte';
 	import Avatar from '$lib/components/Avatar.svelte';
+	import Mfm from '$lib/components/Mfm.svelte';
 
 	let {
 		data,
@@ -47,7 +48,9 @@ ${page.url.protocol + '//' + page.url.host + '/ask/' + data.id}`);
 
 {#snippet inner()}
 	<div class="question">
-		<p>{@html data.content}</p>
+		<p>
+			<Mfm content={data.content} />
+		</p>
 		<br />
 		<small class="time"
 			><a href={'/ask/' + data.id}
@@ -67,7 +70,9 @@ ${page.url.protocol + '//' + page.url.host + '/ask/' + data.id}`);
 	</div>
 	<div class="response">
 		{#if submittedResponse || data.response}
-			<p>{@html submittedResponse ? response : data.response}</p>
+			<p>
+				<Mfm content={submittedResponse ? response : data.response} />
+			</p>
 		{:else if onResponsePage && !submittedResponse}
 			<input
 				class="ipt tertiary"
