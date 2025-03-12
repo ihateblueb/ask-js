@@ -99,6 +99,8 @@
 					? ' v' + metaParsed?.version
 					: ''} &bull;
 				<a href="https://github.com/ihateblueb/ask-js">Source</a>
+				&bull;
+				<a href="https://github.com/ihateblueb/ask-js/issues/new">Report issue</a>
 			</p>
 		</footer>
 	</div>
