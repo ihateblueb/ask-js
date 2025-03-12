@@ -4,6 +4,7 @@ import IdService from './IdService.js';
 import SanitizerService from './SanitizerService.js';
 import AskService from './AskService.js';
 import NotificationService from './NotificationService.js';
+import LoggerService from './LoggerService.js';
 
 class CommentService {
 	public async get(where: ObjectLiteral) {
@@ -45,6 +46,10 @@ class CommentService {
 			content: SanitizerService.sanitize(content),
 			createdAt: new Date().toISOString()
 		};
+
+		LoggerService.debug(
+			'created comment ' + comment.id + ' to ask ' + commentingOn
+		);
 
 		await db.getRepository('comment').insert(comment);
 

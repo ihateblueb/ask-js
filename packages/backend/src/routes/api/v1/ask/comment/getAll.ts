@@ -40,8 +40,6 @@ export default plugin(async (fastify) => {
 			if (req.query.since) where['createdAt'] = LessThan(req.query.since);
 			if (req.query.take) take = req.query.take;
 
-			console.log(where);
-
 			return await TimelineService.get(
 				'comment',
 				where,

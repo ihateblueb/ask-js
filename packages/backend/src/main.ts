@@ -12,17 +12,29 @@ import { handler } from 'frontend/build/handler.js';
 import config from '../../../config/config.json' with { type: 'json' };
 import IdService from './services/IdService.js';
 import fastifyStatic from '@fastify/static';
+import LoggerService from './services/LoggerService.js';
+import chalk from 'chalk';
 
 const fastify = Fastify({
-	logger: true,
+	logger: false,
 	genReqId: () => IdService.generate()
 });
 
 await db.initialize().then(() => {
-	fastify.log.info('Database initialized');
+	LoggerService.done('database initialized');
 });
 
 fastify
+	.addHook('preHandler', (req, reply, done) => {
+		reply.header('TDM-Reservation', '1');
+
+		if (req.url && !req.url.startsWith('/_app'))
+			LoggerService.http(
+				`-->	${req.method.toLowerCase()} ${req.url} ${chalk.gray('(' + req.id + ')')}`
+			);
+
+		done();
+	})
 	.register(fastifyRateLimit, {
 		max: 250,
 		timeWindow: '1 minute'
@@ -75,8 +87,15 @@ fastify.listen(
 	{ host: config.host ?? '0.0.0.0', port: Number(config.port ?? 3579) },
 	function (err, address) {
 		if (err) {
-			fastify.log.error(err);
+			console.log(err);
 			process.exit(1);
+		} else {
+			LoggerService.done(
+				'listening on ' +
+					(config.host ?? '0.0.0.0') +
+					':' +
+					Number(config.port ?? 3579)
+			);
 		}
 	}
 );

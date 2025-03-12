@@ -64,17 +64,6 @@ export default plugin(async (fastify) => {
 					.status(503)
 					.send({ message: 'You cannot edit this user' });
 
-			console.log(
-				{ id: user.id },
-				{
-					avatar: req.body.avatar,
-					displayName: req.body.displayName,
-					prompt: req.body.prompt,
-					acceptingAsks: req.body.acceptingAsks,
-					showResponses: req.body.showResponses
-				}
-			);
-
 			await UserService.update(
 				{ id: user.id },
 				{

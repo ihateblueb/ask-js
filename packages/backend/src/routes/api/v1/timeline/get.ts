@@ -45,7 +45,6 @@ export default plugin(async (fastify) => {
 				to: { id: req.params.id }
 			};
 
-			console.log(req.auth?.user, req.params.id);
 			if (req.auth?.user === req.params.id) {
 				where['visibility'] = In(['public', 'private']);
 			} else {
@@ -57,8 +56,6 @@ export default plugin(async (fastify) => {
 
 			if (req.query.since) where['createdAt'] = LessThan(req.query.since);
 			if (req.query.take) take = req.query.take;
-
-			console.log(where);
 
 			return await TimelineService.get(
 				'ask',

@@ -4,6 +4,7 @@ import db from '../utils/db.js';
 import IdService from './IdService.js';
 import SanitizerService from './SanitizerService.js';
 import NotificationService from './NotificationService.js';
+import LoggerService from './LoggerService.js';
 
 class AskService {
 	public async get(where: ObjectLiteral) {
@@ -68,6 +69,8 @@ class AskService {
 			createdAt: new Date().toISOString()
 		};
 
+		LoggerService.debug('created ask ' + ask.id);
+
 		await db.getRepository('ask').insert(ask);
 
 		await NotificationService.create(
@@ -117,6 +120,8 @@ class AskService {
 				read: true
 			}
 		);
+
+		LoggerService.debug('responded to ask ' + ask.id);
 
 		return {
 			error: false,

@@ -4,6 +4,7 @@ import IdService from './IdService.js';
 import UserService from './UserService.js';
 import { NotificationType } from '../entities/Notification.js';
 import SanitizerService from './SanitizerService.js';
+import LoggerService from './LoggerService.js';
 
 class CommentService {
 	public async get(where: ObjectLiteral) {
@@ -63,6 +64,8 @@ class CommentService {
 			askId: ask,
 			createdAt: new Date().toISOString()
 		};
+
+		LoggerService.debug('created notification ' + id);
 
 		await db.getRepository('notification').insert(notification);
 

@@ -6,6 +6,7 @@ import db from '../utils/db.js';
 import UserService from './UserService.js';
 import config from '../../../../config/config.json' with { type: 'json' };
 import SanitizerService from './SanitizerService.js';
+import LoggerService from './LoggerService.js';
 
 class AuthService {
 	public async verifyToken(token: string) {
@@ -13,21 +14,31 @@ class AuthService {
 			where: { token: (token ?? '').replace('Bearer ', '') }
 		});
 
-		if (!auth)
+		if (!auth) {
+			LoggerService.debug('token ' + token + ' invalid');
 			return {
 				error: true,
 				message: 'Token invalid'
 			};
+		}
 
 		const user = await UserService.get({
 			id: auth.user
 		});
 
-		if (!user.approved)
+		if (!user.approved) {
+			LoggerService.debug(
+				'failed authentication for ' +
+					auth.user +
+					' because account disabled'
+			);
 			return {
 				error: true,
 				message: 'Account not enabled'
 			};
+		}
+
+		LoggerService.debug('successful authentication for ' + auth.user);
 
 		return {
 			error: false,
@@ -127,6 +138,8 @@ class AuthService {
 		}
 
 		const auth = await this.generateToken(id);
+
+		LoggerService.debug('account ' + user.id + ' registered');
 
 		if (config.registrations === 'approval') {
 			return {

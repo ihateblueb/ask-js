@@ -36,8 +36,6 @@ export default plugin(async (fastify) => {
 
 			if (!req.query.read) where['read'] = false;
 
-			console.log(where);
-
 			return await TimelineService.get(
 				'notification',
 				where,
