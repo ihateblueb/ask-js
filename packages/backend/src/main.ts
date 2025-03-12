@@ -35,6 +35,14 @@ fastify
 
 		done();
 	})
+	.addHook('onResponse', (req, reply, done) => {
+		if (req.url && !req.url.startsWith('/_app'))
+			LoggerService.http(
+				`<--	${req.method.toLowerCase()} ${req.url} ${reply.statusCode} ${chalk.gray('(' + req.id + ')')}`
+			);
+
+		done();
+	})
 	.register(fastifyRateLimit, {
 		max: 250,
 		timeWindow: '1 minute'
