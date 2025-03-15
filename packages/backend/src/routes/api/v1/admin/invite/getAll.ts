@@ -2,6 +2,7 @@ import plugin from 'fastify-plugin';
 import { FromSchema } from 'json-schema-to-ts';
 import { In, IsNull, LessThan, Not } from 'typeorm';
 import TimelineService from '../../../../../services/TimelineService.js';
+import UserService from '../../../../../services/UserService.js';
 
 export default plugin(async (fastify) => {
 	const schema = {
@@ -21,9 +22,18 @@ export default plugin(async (fastify) => {
 		'/api/v1/admin/invites',
 		{
 			schema: schema,
-			preHandler: fastify.auth([fastify.optionalAuth])
+			preHandler: fastify.auth([fastify.requireAuth])
 		},
 		async (req, reply) => {
+			const requestingUser = await UserService.get({
+				id: req.auth.user
+			});
+
+			if (!requestingUser || !requestingUser.admin)
+				return reply
+					.status(403)
+					.send({ message: 'You are not an admin' });
+
 			let where = {};
 			let take;
 
