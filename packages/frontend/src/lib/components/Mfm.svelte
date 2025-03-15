@@ -462,13 +462,13 @@
 		blockquote {
 			margin: 8px 0;
 
-			color: var(--tx2);
-			border-left: 2px solid var(--tx3);
-			background-color: var(--bg4-25);
+			color: var(--tx-2);
+			border-left: 2px solid var(--tx-3);
+			background-color: var(--bg-4-25);
 			opacity: 75%;
 
 			border-radius: var(--br-xs);
-			padding: 8px 0 8px 10px;
+			padding: 4px 0 4px 10px;
 		}
 
 		.mfm-blur {
@@ -510,7 +510,7 @@
 		.mfm-blockCode {
 			display: block;
 			overflow-wrap: anywhere;
-			background: var(--bg3);
+			background: var(--bg-3);
 			padding: 8px 12px;
 			margin: 5px 0px;
 			overflow: auto;
