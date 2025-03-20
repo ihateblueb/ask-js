@@ -36,6 +36,11 @@ export default plugin(async (fastify) => {
 		async (req, reply) => {
 			const user = await UserService.get({ id: req.params.id });
 
+			if (!user)
+				return reply.status(404).send({
+					message: 'User not found'
+				});
+
 			if (!user.showResponses && req.auth?.user !== user.id)
 				return reply.status(403).send({
 					message: 'User has responses hidden'
@@ -66,7 +71,7 @@ export default plugin(async (fastify) => {
 				if (e && e.length > 0)
 					return reply
 						.status(200)
-						.send(await AskRenderer.buildMany(e));
+						.send(await AskRenderer.buildMany(e, false));
 				return reply.status(204).send();
 			});
 		}
