@@ -14,6 +14,8 @@
 	import store from '$lib/store.js';
 	import parsedLocalStore from '$lib/parsedLocalStore.js';
 
+	let count = $state(0)
+
 	let selfParsed = parsedLocalStore.self;
 	let metaParsed = parsedLocalStore.meta;
 
@@ -34,6 +36,13 @@
 						{page.url.host}
 					</a>
 				</div>
+				{#if count > 9}
+					<div>
+						<a href="steam://launch/220/dialog">
+							<img src="/gordon.webp" height="50px" />
+						</a>
+					</div>
+				{/if}
 				<div class="right">
 					{#if selfParsed}
 						<div class="btnCtn wideGap">
@@ -99,7 +108,7 @@
 					? ' v' + metaParsed?.version
 					: ''} &bull;
 				<a href="https://github.com/ihateblueb/ask-js">Source</a>
-				&bull;
+				<span role="button" tabindex="0" onclick={() => count++}>&bull;</span>
 				<a href="https://github.com/ihateblueb/ask-js/issues/new"
 					>Report issue</a
 				>
