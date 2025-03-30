@@ -2,6 +2,7 @@
 
 <script lang="ts">
 	import * as mfm from 'mfm-js';
+	import Page from '../../routes/+page.svelte';
 
 	let { content, simple = false, emojis = undefined } = $props();
 
@@ -84,12 +85,12 @@
 		{object.props.emoji}
 	{:else if object.type === 'mention'}
 		<div style="display: inline-block;">
-			<a href={'/' + object.props.acct}>
-				{object.props.acct}
+			<a href={'/' + object.props.username}>
+				@{object.props.username}
 			</a>
 		</div>
 	{:else if object.type === 'hashtag'}
-		<a href={'/tag/' + object.props.hashtag}>#{object.props.hashtag}</a>
+		#{object.props.hashtag}
 	{:else if object.type === 'inlineCode'}
 		<code class="mfm-inlineCode">{object.props.code}</code>
 	{:else if object.type === 'blockCode'}
