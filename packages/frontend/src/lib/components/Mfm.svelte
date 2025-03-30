@@ -522,14 +522,14 @@
 
 		.mfm-rainbow {
 			background-image: linear-gradient(
-					to right,
-					rgb(255, 0, 0) 0%,
-					rgb(255, 165, 0) 17%,
-					rgb(255, 255, 0) 33%,
-					rgb(0, 255, 0) 50%,
-					rgb(0, 255, 255) 67%,
-					rgb(0, 0, 255) 83%,
-					rgb(255, 0, 255) 100%
+				to right,
+				rgb(255, 0, 0) 0%,
+				rgb(255, 165, 0) 17%,
+				rgb(255, 255, 0) 33%,
+				rgb(0, 255, 0) 50%,
+				rgb(0, 255, 255) 67%,
+				rgb(0, 0, 255) 83%,
+				rgb(255, 0, 255) 100%
 			);
 			-webkit-background-clip: text;
 			background-clip: text;

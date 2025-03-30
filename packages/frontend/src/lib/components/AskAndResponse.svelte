@@ -24,7 +24,8 @@
 	let deleted = $state(false);
 
 	function copyAsk() {
-		navigator.clipboard.writeText(`> ${data.content.replaceAll("\n", "\n> ")}
+		navigator.clipboard
+			.writeText(`> ${data.content.replaceAll('\n', '\n> ')}
 
 ${submittedResponse ? response : data.response}
 
@@ -93,7 +94,8 @@ ${page.url.protocol + '//' + page.url.host + '/ask/' + data.id}`);
 					<Avatar user={data.to} />
 					<p>
 						<small>Asked to</small>
-						<a href={'/@' + data.to.username}>@{data.to.username}</a>
+						<a href={'/@' + data.to.username}>@{data.to.username}</a
+						>
 					</p>
 				</div>
 			{/if}

@@ -14,7 +14,7 @@
 	import store from '$lib/store.js';
 	import parsedLocalStore from '$lib/parsedLocalStore.js';
 
-	let count = $state(0)
+	let count = $state(0);
 
 	let selfParsed = parsedLocalStore.self;
 	let metaParsed = parsedLocalStore.meta;
@@ -108,7 +108,9 @@
 					? ' v' + metaParsed?.version
 					: ''} &bull;
 				<a href="https://github.com/ihateblueb/ask-js">Source</a>
-				<span role="button" tabindex="0" onclick={() => count++}>&bull;</span>
+				<span role="button" tabindex="0" onclick={() => count++}
+					>&bull;</span
+				>
 				<a href="https://github.com/ihateblueb/ask-js/issues/new"
 					>Report issue</a
 				>

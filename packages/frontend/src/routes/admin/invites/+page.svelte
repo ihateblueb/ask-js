@@ -62,7 +62,7 @@
 					</div>
 					<div class="right">
 						{#if data.usedBy}
-							<p title={'Used by ' + data.usedBy}>Used</p>
+							<p>Used by <a href={"/@"+data.usedBy?.username}>@{data.usedBy?.username}</a></p>
 						{:else}
 							<p>Unused</p>
 						{/if}

@@ -129,10 +129,10 @@ class AuthService {
 		if (config.registrations === 'invite') {
 			await db.getRepository('invite').update(
 				{
-					invite: invite
+					code: invite
 				},
 				{
-					usedBy: id
+					usedById: id
 				}
 			);
 		}
