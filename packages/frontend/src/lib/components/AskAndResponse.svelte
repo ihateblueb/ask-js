@@ -24,7 +24,7 @@
 	let deleted = $state(false);
 
 	function copyAsk() {
-		navigator.clipboard.writeText(`> ${data.content}
+		navigator.clipboard.writeText(`> ${data.content.replaceAll("\n", "\n> ")}
 
 ${submittedResponse ? response : data.response}
 
