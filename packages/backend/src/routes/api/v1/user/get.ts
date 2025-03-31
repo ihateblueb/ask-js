@@ -24,7 +24,7 @@ export default plugin(async (fastify) => {
 		async (req, reply) => {
 			const user = await UserService.get({ id: req.params.id });
 
-			if (!user)
+			if (!user || !user.approved)
 				return reply.status(404).send({ message: 'User not found' });
 
 			return reply.status(200).send(user);

@@ -26,7 +26,7 @@ export default plugin(async (fastify) => {
 				username: req.params.username
 			});
 
-			if (!user)
+			if (!user || !user.approved)
 				return reply.status(404).send({ message: 'User not found' });
 
 			return reply.status(200).send(user);
