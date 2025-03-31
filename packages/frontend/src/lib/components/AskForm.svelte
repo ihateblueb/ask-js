@@ -49,7 +49,7 @@
 				<div class="left">
 					<select class="ipt" bind:value={visibility}>
 						<option value="public">Public</option>
-						<option value="public">Private</option>
+						<option value="private">Private</option>
 					</select>
 				</div>
 
