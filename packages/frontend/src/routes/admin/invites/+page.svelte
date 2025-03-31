@@ -69,15 +69,15 @@
 							</p>
 						{:else}
 							<p>Unused</p>
-						{/if}
 
-						<button
-							class="btn nav danger"
-							onclick={() => del(data.id)}
-						>
-							<IconTrash size="18px" />
-							Delete
-						</button>
+							<button
+								class="btn nav danger"
+								onclick={() => del(data.id)}
+							>
+								<IconTrash size="18px" />
+								Delete
+							</button>
+						{/if}
 					</div>
 				</div>
 			{/each}
