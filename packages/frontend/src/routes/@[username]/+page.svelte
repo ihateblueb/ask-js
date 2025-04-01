@@ -22,7 +22,8 @@
 	});
 
 	$effect(() => {
-		if ($query.data && (props.data.username !== $query.data?.username)) $query.refetch();
+		if ($query.data && props.data.username !== $query.data?.username)
+			$query.refetch();
 	});
 </script>
 

@@ -8,7 +8,9 @@ class UserService {
 
 	public async isUsernameTaken(username: string) {
 		return Boolean(
-			await db.getRepository('used_usernames').findOne({ where: { username: username.toLowerCase() } })
+			await db
+				.getRepository('used_usernames')
+				.findOne({ where: { username: username.toLowerCase() } })
 		);
 	}
 

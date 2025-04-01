@@ -5,7 +5,6 @@
 		IconArrowBackUp,
 		IconCopy,
 		IconLock,
-		IconStar,
 		IconTrash,
 		IconWorld
 	} from '@tabler/icons-svelte';
@@ -20,6 +19,7 @@
 	} = $props();
 
 	let response = $state('');
+	let responseFor = $state('');
 	let submittedResponse = $state(false);
 	let deleted = $state(false);
 
@@ -43,8 +43,17 @@ ${page.url.protocol + '//' + page.url.host + '/ask/' + data.id}`);
 			response: response
 		}).then(() => {
 			submittedResponse = true;
+			responseFor = data.id;
 		});
 	}
+
+	$effect(() => {
+		if (data && data.id !== responseFor) {
+			submittedResponse = false;
+			responseFor = '';
+			response = '';
+		}
+	});
 </script>
 
 {#snippet inner()}
