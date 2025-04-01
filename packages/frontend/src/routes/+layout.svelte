@@ -2,7 +2,6 @@
 	import { page } from '$app/state';
 	import { createQuery, QueryClientProvider } from '@tanstack/svelte-query';
 	import queryClient from '$lib/queryClient.js';
-	import localStore from '$lib/localStore.js';
 	import Avatar from '$lib/components/Avatar.svelte';
 	import {
 		IconBell,
@@ -33,7 +32,7 @@
 			<div class="inner">
 				<div class="left">
 					<a class="subtle" href="/">
-						{page.url.host}
+						{parsedLocalStore.meta?.title ?? page.url.host}
 					</a>
 				</div>
 				{#if count > 9}

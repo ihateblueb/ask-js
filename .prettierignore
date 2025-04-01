@@ -16,6 +16,9 @@ pnpm-lock.yaml
 .gitignore
 .prettierignore
 *.png
+*.webp
+*.jpg
+*.jpeg
 Dockerfile
 cosign.pub
 cosign.key

@@ -62,7 +62,10 @@
 		<slot></slot>
 	</div>
 {:else}
-	<Error message="You do not have access to this page." retry={() => window.location.reload()} />
+	<Error
+		message="You do not have access to this page."
+		retry={() => window.location.reload()}
+	/>
 {/if}
 
 <style lang="scss" scoped>
