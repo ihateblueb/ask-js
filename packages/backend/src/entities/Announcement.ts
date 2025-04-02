@@ -13,7 +13,7 @@ export class Announcement {
         enum: ['urgent', 'warn', 'generic'],
         default: 'generic'
     })
-    target: AnnouncementType;
+    type: AnnouncementType;
 
     @Column()
     content: string;
@@ -23,8 +23,4 @@ export class Announcement {
 
     @Column()
     validUntil: string;
-
-    // todo: many users
-    @Column()
-    readBy: string;
 }
