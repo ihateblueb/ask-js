@@ -111,11 +111,7 @@ class AuthService {
 			password: hash
 		};
 
-		let existingUser = await UserService.get({
-			username: username
-		});
-
-		if (existingUser) {
+		if (await UserService.isUsernameTaken(username)) {
 			return {
 				error: true,
 				status: 400,
@@ -129,10 +125,10 @@ class AuthService {
 		if (config.registrations === 'invite') {
 			await db.getRepository('invite').update(
 				{
-					invite: invite
+					code: invite
 				},
 				{
-					usedBy: id
+					usedById: id
 				}
 			);
 		}

@@ -6,6 +6,14 @@ class UserService {
 		return await db.getRepository('user').findOne({ where: where });
 	}
 
+	public async isUsernameTaken(username: string) {
+		return Boolean(
+			await db
+				.getRepository('used_usernames')
+				.findOne({ where: { username: username.toLowerCase() } })
+		);
+	}
+
 	public async getMany(where: ObjectLiteral, order?: string, take?: number) {
 		return await db
 			.getRepository('user')

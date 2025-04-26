@@ -18,7 +18,6 @@ export default plugin(async (fastify) => {
 			properties: {
 				displayName: {
 					type: ['string', 'null'],
-					minLength: 1,
 					maxLength: 100
 				},
 				avatar: {
@@ -27,7 +26,6 @@ export default plugin(async (fastify) => {
 				},
 				prompt: {
 					type: ['string', 'null'],
-					minLength: 1,
 					maxLength: 8192
 				},
 				acceptingAsks: {

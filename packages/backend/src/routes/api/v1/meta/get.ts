@@ -25,6 +25,7 @@ export default plugin(async (fastify) => {
 			let commentCount = await db.getRepository('comment').count();
 
 			return reply.status(200).send({
+				title: config.meta?.title,
 				version: pkg.version,
 				registrations: config.registrations ?? 'closed',
 				stats: {

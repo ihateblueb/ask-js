@@ -2,7 +2,6 @@
 	import { page } from '$app/state';
 	import { createQuery, QueryClientProvider } from '@tanstack/svelte-query';
 	import queryClient from '$lib/queryClient.js';
-	import localStore from '$lib/localStore.js';
 	import Avatar from '$lib/components/Avatar.svelte';
 	import {
 		IconBell,
@@ -13,6 +12,8 @@
 	import Tab from '$lib/components/Tab.svelte';
 	import store from '$lib/store.js';
 	import parsedLocalStore from '$lib/parsedLocalStore.js';
+
+	let count = $state(0);
 
 	let selfParsed = parsedLocalStore.self;
 	let metaParsed = parsedLocalStore.meta;
@@ -31,9 +32,16 @@
 			<div class="inner">
 				<div class="left">
 					<a class="subtle" href="/">
-						{page.url.host}
+						{parsedLocalStore.meta?.title ?? page.url.host}
 					</a>
 				</div>
+				{#if count > 9}
+					<div>
+						<a href="steam://launch/220/dialog">
+							<img src="/gordon.webp" height="50px" />
+						</a>
+					</div>
+				{/if}
 				<div class="right">
 					{#if selfParsed}
 						<div class="btnCtn wideGap">
@@ -99,7 +107,9 @@
 					? ' v' + metaParsed?.version
 					: ''} &bull;
 				<a href="https://github.com/ihateblueb/ask-js">Source</a>
-				&bull;
+				<span role="button" tabindex="0" onclick={() => count++}
+					>&bull;</span
+				>
 				<a href="https://github.com/ihateblueb/ask-js/issues/new"
 					>Report issue</a
 				>

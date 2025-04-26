@@ -33,6 +33,15 @@ export default plugin(async (fastify) => {
 					.status(403)
 					.send({ message: 'You are not an admin' });
 
+			const invite = await InviteService.get({
+				id: req.params.id
+			});
+
+			if (invite.usedById)
+				return reply
+					.status(400)
+					.send({ message: 'Cannot delete used invite' });
+
 			return await InviteService.delete({
 				id: req.params.id
 			}).then(() => {

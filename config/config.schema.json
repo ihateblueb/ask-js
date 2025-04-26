@@ -37,6 +37,14 @@
 				}
 			},
 			"required": ["user", "name"]
+		},
+		"meta": {
+			"type": "object",
+			"properties": {
+				"title": {
+					"type": "string"
+				}
+			}
 		}
 	},
 	"required": ["port", "registrations", "db"]

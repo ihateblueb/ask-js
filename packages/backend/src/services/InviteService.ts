@@ -12,6 +12,7 @@ class UserService {
 		return await db
 			.getRepository('invite')
 			.createQueryBuilder('invite')
+			.leftJoinAndSelect('invite.usedBy', 'usedBy')
 			.where(where)
 			.orderBy(order, 'DESC')
 			.take(take ?? 45)

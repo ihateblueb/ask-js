@@ -5,7 +5,6 @@
 		IconArrowBackUp,
 		IconCopy,
 		IconLock,
-		IconStar,
 		IconTrash,
 		IconWorld
 	} from '@tabler/icons-svelte';
@@ -20,11 +19,13 @@
 	} = $props();
 
 	let response = $state('');
+	let responseFor = $state('');
 	let submittedResponse = $state(false);
 	let deleted = $state(false);
 
 	function copyAsk() {
-		navigator.clipboard.writeText(`> ${data.content}
+		navigator.clipboard
+			.writeText(`> ${data.content.replaceAll('\n', '\n> ')}
 
 ${submittedResponse ? response : data.response}
 
@@ -42,8 +43,17 @@ ${page.url.protocol + '//' + page.url.host + '/ask/' + data.id}`);
 			response: response
 		}).then(() => {
 			submittedResponse = true;
+			responseFor = data.id;
 		});
 	}
+
+	$effect(() => {
+		if (data && data.id !== responseFor) {
+			submittedResponse = false;
+			responseFor = '';
+			response = '';
+		}
+	});
 </script>
 
 {#snippet inner()}
@@ -93,7 +103,8 @@ ${page.url.protocol + '//' + page.url.host + '/ask/' + data.id}`);
 					<Avatar user={data.to} />
 					<p>
 						<small>Asked to</small>
-						<a href={'/@' + data.to.username}>@{data.to.username}</a>
+						<a href={'/@' + data.to.username}>@{data.to.username}</a
+						>
 					</p>
 				</div>
 			{/if}

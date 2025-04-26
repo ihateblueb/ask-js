@@ -30,7 +30,7 @@ export class Ask {
 	@Column({ nullable: true })
 	nickname: string;
 
-	@Column({ nullable: false, default: 'public' })
+	@Column({ default: 'public' })
 	visibility: string;
 
 	@Column()
