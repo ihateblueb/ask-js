@@ -1,3 +1,5 @@
+@import "lib/fonts/inter";
+
 :root {
 	@media (prefers-color-scheme: light) {
 		--bg-1: #f7f3ff;
@@ -70,8 +72,6 @@ body {
 	overflow-y: scroll;
 	overflow-x: hidden;
 
-	font-family: system-ui;
-
 	@media (max-width: 535px) {
 		.btn.tab {
 			&.collapsable {
@@ -84,6 +84,11 @@ body {
 			}
 		}
 	}
+}
+
+html, body, p, input, button {
+	font-family: "Inter", system-ui;
+	font-feature-settings: 'cv05', 'cv08';
 }
 
 h1,

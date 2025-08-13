@@ -57,6 +57,7 @@
 			{/key}
 		</div>
 	</div>
+	<hr />
 
 	<div class="adminCtn">
 		<slot></slot>
@@ -71,9 +72,16 @@
 <style lang="scss" scoped>
 	.adminTabs {
 		display: flex;
-
-		border-radius: 6px;
 		margin-top: -10px;
+	}
+
+	hr {
+		border: none;
+		border-bottom: 1px solid var(--bg-2);
+		width: 150vw;
+		margin-top: 0;
+		margin-bottom: 25px;
+		margin-left: calc(-1 * 50vw);
 	}
 
 	.adminCtn {

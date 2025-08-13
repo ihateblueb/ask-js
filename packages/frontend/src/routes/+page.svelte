@@ -100,7 +100,7 @@
 
 <style>
 	h2 {
-		margin-bottom: 10px;
+		margin-bottom: 15px;
 	}
 
 	.stats {
@@ -108,7 +108,7 @@
 		flex-wrap: wrap;
 		gap: 10px;
 
-		margin-bottom: 15px;
+		margin-bottom: 20px;
 
 		.stat {
 			display: flex;
@@ -118,16 +118,26 @@
 			font-size: 14px;
 			background-color: var(--bg-2);
 
-			padding: 12px;
+			padding: 16px;
 			width: calc(50% - 10px);
 			box-sizing: border-box;
-			border-radius: 7px;
+			border-radius: 10px;
 
 			.icon {
 				display: flex;
 				align-items: center;
 				margin-right: 2px;
 				color: var(--ac-1);
+
+				&::before {
+					position: absolute;
+					content: '';
+					width: 18px;
+					height: 18px;
+					border-radius: 50%;
+					background-color: var(--ac-1-50);
+					filter: blur(8px);
+				}
 			}
 		}
 	}
@@ -135,12 +145,12 @@
 	.directory {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 10px;
+		gap: 12px;
 
 		.userCard {
 			display: flex;
 			align-items: center;
-			gap: 10px;
+			gap: 12px;
 
 			width: calc(50% - 10px);
 			box-sizing: border-box;
