@@ -151,13 +151,13 @@ ${page.url.protocol + '//' + page.url.host + '/ask/' + data.id}`);
 		background: var(--bg-2);
 		color: var(--tx-2);
 
-		border-radius: 7px;
+		border-radius: 10px;
 		overflow: clip;
 	}
 
 	summary {
 		background: var(--bg-3);
-		padding: 8px 12px;
+		padding: 10px 12px;
 		font-size: 14px;
 	}
 
@@ -177,7 +177,7 @@ ${page.url.protocol + '//' + page.url.host + '/ask/' + data.id}`);
 	}
 
 	.footer {
-		padding: 10px;
+		padding: 12px;
 		background: var(--bg-3-75);
 	}
 
@@ -187,7 +187,7 @@ ${page.url.protocol + '//' + page.url.host + '/ask/' + data.id}`);
 		flex-direction: column;
 		gap: 4px;
 
-		padding: 10px;
+		padding: 12px;
 	}
 
 	.question {

@@ -166,8 +166,8 @@
 		color: var(--tx-2);
 
 		gap: 10px;
-		padding: 10px;
-		border-radius: 7px;
+		padding: 14px;
+		border-radius: 10px;
 		overflow: clip;
 
 		.header {
@@ -188,10 +188,11 @@
 				justify-content: flex-end;
 				align-items: flex-end;
 
-				height: 10px;
-				width: 10px;
+				height: 6px;
+				width: 6px;
 				background-color: var(--ac-1);
 				border-radius: 99px;
+				box-shadow: 0 0 10px var(--ac-1);
 			}
 		}
 

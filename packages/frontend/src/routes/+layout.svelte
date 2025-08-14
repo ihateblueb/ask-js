@@ -14,6 +14,9 @@
 	import parsedLocalStore from '$lib/parsedLocalStore.js';
 
 	let count = $state(0);
+	let name = $state(`${page.url.host}`);
+
+	if (parsedLocalStore.meta?.title !== undefined) name = parsedLocalStore.meta.title
 
 	let selfParsed = parsedLocalStore.self;
 	let metaParsed = parsedLocalStore.meta;
@@ -32,7 +35,7 @@
 			<div class="inner">
 				<div class="left">
 					<a class="subtle" href="/">
-						{parsedLocalStore.meta?.title ?? page.url.host}
+						{name}
 					</a>
 				</div>
 				{#if count > 9}

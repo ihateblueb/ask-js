@@ -136,7 +136,7 @@ small {
 		justify-content: end;
 		flex-grow: 1;
 		width: 100%;
-		gap: 5px;
+		gap: 8px;
 	}
 
 	&.wideGap {
@@ -157,7 +157,7 @@ small {
 		flex-wrap: wrap;
 	}
 	&.padded {
-		padding: 0px 10px 10px 10px;
+		padding: 0 12px 12px 12px;
 	}
 }
 
@@ -173,7 +173,7 @@ small {
 	align-items: center;
 	box-sizing: border-box;
 
-	border-radius: 7px;
+	border-radius: 10px;
 	padding: 8px 12px;
 	gap: 6px;
 
@@ -364,7 +364,7 @@ label {
 .error,
 .success {
 	padding: 8px 10px;
-	border-radius: 7px;
+	border-radius: 10px;
 	width: 100%;
 	box-sizing: border-box;
 
@@ -394,7 +394,7 @@ label {
 		display: flex;
 		align-items: start;
 		flex-direction: column;
-		gap: 4px;
+		gap: 6px;
 
 		max-width: 250px;
 		width: 100%;

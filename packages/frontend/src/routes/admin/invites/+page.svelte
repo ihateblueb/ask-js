@@ -92,7 +92,7 @@
 		gap: 10px;
 
 		padding: 8px 12px;
-		border-radius: 6px;
+		border-radius: 10px;
 		background: var(--bg-2);
 
 		.left,

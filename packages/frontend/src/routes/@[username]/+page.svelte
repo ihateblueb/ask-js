@@ -113,7 +113,7 @@
 				padding: 8px 10px;
 				background: var(--bg-2);
 				color: var(--tx-2);
-				border-radius: 6px;
+				border-radius: 10px;
 
 				.username {
 					color: var(--tx-3);

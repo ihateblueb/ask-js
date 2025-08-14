@@ -137,8 +137,9 @@
 									class="subtle"
 									href={'/@' + data.user.username}
 									>{data.user.displayName ??
-										data.user.username} (@{data.user
-										.username})</a
+										data.user.username}
+									<span>@{data.user.username}</span>
+								</a
 								>
 								<p>{data.content}</p>
 							</div>
@@ -165,7 +166,7 @@
 	.commentBar {
 		margin-top: 10px;
 
-		border-radius: 6px;
+		border-radius: 10px;
 		padding: 10px;
 		background: var(--bg-2);
 	}
@@ -178,7 +179,7 @@
 			flex-direction: column;
 			gap: 10px;
 
-			border-radius: 6px;
+			border-radius: 10px;
 			padding: 10px;
 			background: var(--bg-2);
 
@@ -206,6 +207,12 @@
 
 					a {
 						font-weight: bold;
+
+						span {
+							font-weight: normal;
+							margin-left: 5px;
+							color: var(--tx-3);
+						}
 					}
 				}
 			}

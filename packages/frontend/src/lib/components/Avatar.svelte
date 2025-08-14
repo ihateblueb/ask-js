@@ -40,7 +40,7 @@
 			align-items: center;
 			justify-content: center;
 
-			border-radius: 7px;
+			border-radius: 8px;
 			background: var(--bg-3);
 
 			color: var(--tx-3);
