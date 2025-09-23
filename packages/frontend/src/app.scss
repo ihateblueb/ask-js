@@ -27,6 +27,9 @@
 		--danger-1: #dc3d30;
 		--danger-1-50: #dc3d3050;
 
+		--warning-1: #f1b134;
+		--warning-1-50: #f1b13450;
+
 		--success-1: #38b84d;
 		--success-1-50: #38b84d50;
 	}
@@ -56,6 +59,9 @@
 
 		--danger-1: #e65448;
 		--danger-1-50: #e6544850;
+
+		--warning-1: #f1b134;
+		--warning-1-50: #f1b13450;
 
 		--success-1: #38b84d;
 		--success-1-50: #38b84d50;
@@ -492,4 +498,27 @@ label {
 	margin: 16px;
 	text-align: center;
 	color: var(--tx-3);
+}
+
+.alerts {
+	--gap: 10px;
+	--padding: calc(var(--gap) + 5px);
+
+	position: fixed;
+	top: 0;
+	right: 0;
+	z-index: 100;
+
+	height: calc(100vh - (var(--padding) * 2));
+	width: calc(100vw - (var(--padding) * 2));
+
+	display: flex;
+	flex-direction: column;
+	justify-content: end;
+	align-items: end;
+
+	padding: var(--padding);
+	gap: var(--gap);
+
+	pointer-events: none;
 }
