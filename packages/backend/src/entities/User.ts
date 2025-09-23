@@ -26,6 +26,11 @@ export class User {
 	@Column({ default: true })
 	showResponses: boolean;
 
+	/*
+	@Column({ nullable: true })
+	emojiSource: string;
+	*/
+
 	@Column({ default: false })
 	admin: boolean;
 }

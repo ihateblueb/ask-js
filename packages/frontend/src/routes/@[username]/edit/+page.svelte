@@ -1,9 +1,8 @@
 <script>
 	import { page } from '$app/state';
-	import { createQuery, QueryObserver } from '@tanstack/svelte-query';
+	import { createQuery } from '@tanstack/svelte-query';
 	import lookupUser from '$lib/api/lookupUser.js';
 	import Https from '$lib/https.js';
-	import queryClient from '$lib/queryClient.js';
 	import Loading from '$lib/components/Loading.svelte';
 	import Error from '$lib/components/Error.svelte';
 
@@ -88,7 +87,7 @@
 					bind:value={values.displayName}
 				/>
 
-				<label for="user_edit_prompt">Prompt</label>
+				<label for="user_edit_prompt">Prompt <span>(supports <a href="https://misskey-hub.net/en/docs/for-users/features/mfm/">MFM</a>)</span></label>
 				<textarea
 					class="ipt"
 					id="user_edit_prompt"
@@ -123,4 +122,9 @@
 {/if}
 
 <style lang="scss" global>
+	label {
+		span {
+			color: var(--tx-3);
+		}
+	}
 </style>
