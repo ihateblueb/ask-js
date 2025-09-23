@@ -12,6 +12,7 @@
 	import Tab from '$lib/components/Tab.svelte';
 	import store from '$lib/store.js';
 	import parsedLocalStore from '$lib/parsedLocalStore.js';
+	import Alert from '$lib/components/Alert.svelte';
 
 	let count = $state(0);
 	let name = $state(`${page.url.host}`);
@@ -26,6 +27,13 @@
 	store.unreadNotifications.subscribe((e) => {
 		unreadNotifications = e;
 		console.log('[unreadNotifications]', e);
+	});
+
+	// @ts-ignore
+	let alerts = $state([]);
+
+	store.alerts.subscribe((e) => {
+		alerts = e
 	});
 </script>
 
@@ -118,6 +126,12 @@
 				>
 			</p>
 		</footer>
+	</div>
+
+	<div class="alerts">
+		{#each alerts as alert}
+			<Alert {alert} />
+		{/each}
 	</div>
 </QueryClientProvider>
 

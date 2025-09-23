@@ -17,6 +17,7 @@
 	import disableUser from '$lib/api/disableUser.js';
 	import Loading from '$lib/components/Loading.svelte';
 	import Error from '$lib/components/Error.svelte';
+	import { createAlert } from '$lib/alert.js';
 
 	let selecting = $state(false);
 	let selection = $state([]);
@@ -45,6 +46,11 @@
 					$query.refetch();
 			});
 		}
+
+		createAlert(
+			"success",
+			"Batch enabled users"
+		)
 	}
 
 	function disableUsers() {
@@ -54,6 +60,11 @@
 					$query.refetch();
 			});
 		}
+
+		createAlert(
+			"success",
+			"Batch disabled users"
+		)
 	}
 </script>
 
