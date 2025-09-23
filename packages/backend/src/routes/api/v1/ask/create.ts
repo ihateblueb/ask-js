@@ -1,6 +1,5 @@
 import plugin from 'fastify-plugin';
 import { FromSchema } from 'json-schema-to-ts';
-import AuthService from '../../../../services/AuthService.js';
 import AskService from '../../../../services/AskService.js';
 
 export default plugin(async (fastify) => {
@@ -23,16 +22,34 @@ export default plugin(async (fastify) => {
 	}>(
 		'/api/v1/ask',
 		{
-			schema: schema
+			schema: schema,
+			preHandler: fastify.auth([fastify.optionalAuth])
 		},
 		async (req, reply) => {
+			if (
+				await AskService.isSenderBanned(
+					req.body.to,
+					req.ip,
+					req.auth.user
+				)
+			)
+				return reply.status(403).send({
+					message: "You've been banned from this inbox"
+				});
+
 			return await AskService.create(
 				req.body.to,
 				req.body.content,
 				req.body.visibility,
 				req.body.cw,
 				req.body.nickname
-			).then((e) => {
+			).then(async (e) => {
+				await AskService.createModRecord(
+					e.ask.id,
+					req.ip,
+					req.auth.user
+				);
+
 				return reply.status(e.status).send({
 					message: e.message,
 					ask: e.ask

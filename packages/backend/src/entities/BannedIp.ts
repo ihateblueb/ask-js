@@ -9,8 +9,5 @@ export class BannedIp {
 	ip: string;
 
 	@Column({ nullable: true })
-	userId: string;
-
-	@Column({ nullable: true })
 	reason: string;
 }
