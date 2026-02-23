@@ -1,3 +1,7 @@
+# this project has been deprecated in favor of ask.kt
+
+https://git.gay/blueb/ask-kt
+
 # ask-js
 
 multiuser ask server.
