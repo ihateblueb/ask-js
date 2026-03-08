@@ -1,9 +1,8 @@
 <script>
 	import sendAsk from '$lib/api/sendAsk.js';
+	import { createAlert } from '$lib/alert.js';
 
 	let { user } = $props();
-
-	let error = $state('');
 
 	let cw = $state('');
 	let content = $state('');
@@ -17,9 +16,16 @@
 				content = '';
 				nickname = '';
 				visibility = 'public';
+				createAlert(
+					"success",
+					"Sent question"
+				)
 			})
 			.catch((err) => {
-				error = err?.message ?? 'Something went wrong';
+				createAlert(
+					"danger",
+					err?.message ?? 'Something went wrong'
+				)
 			});
 	}
 </script>
@@ -27,12 +33,6 @@
 {#if user.acceptingAsks}
 	<div class="form">
 		<div class="inner wide">
-			{#if error.length > 0}
-				<div class="error mb">
-					<p>{error}</p>
-				</div>
-			{/if}
-
 			<input class="ipt" bind:value={cw} placeholder="Content warning" />
 
 			<textarea

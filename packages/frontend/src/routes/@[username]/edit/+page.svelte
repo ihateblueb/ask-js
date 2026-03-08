@@ -5,6 +5,7 @@
 	import Https from '$lib/https.js';
 	import Loading from '$lib/components/Loading.svelte';
 	import Error from '$lib/components/Error.svelte';
+	import { createAlert } from '$lib/alert.js';
 
 	let username = $state(page.params?.username ?? '');
 
@@ -41,6 +42,11 @@
 		await $query.refetch().then((e) => {
 			updateValue(e.data);
 		});
+
+		createAlert(
+			"success",
+			"Updated profile"
+		)
 	}
 </script>
 

@@ -17,6 +17,7 @@ import chalk from 'chalk';
 
 const fastify = Fastify({
 	logger: false,
+	trustProxy: config.behindProxy,
 	genReqId: () => IdService.generate()
 });
 

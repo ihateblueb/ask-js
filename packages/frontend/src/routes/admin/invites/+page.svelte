@@ -3,10 +3,10 @@
 	import generateInvite from '$lib/api/generateInvite.js';
 	import { createInfiniteQuery } from '@tanstack/svelte-query';
 	import getInvites from '$lib/api/getInvites.js';
-	import AskAndResponse from '$lib/components/AskAndResponse.svelte';
 	import deleteInvite from '$lib/api/deleteInvite.js';
 	import Loading from '$lib/components/Loading.svelte';
 	import Error from '$lib/components/Error.svelte';
+	import { createAlert } from '$lib/alert.js';
 
 	let query = createInfiniteQuery({
 		queryKey: ['admin_invites'],
@@ -24,10 +24,18 @@
 
 	function generate() {
 		generateInvite().then(() => $query.refetch());
+		createAlert(
+			"success",
+			"Generated invite"
+		)
 	}
 
 	function del(id) {
 		deleteInvite(id).then(() => $query.refetch());
+		createAlert(
+			"success",
+			"Deleted invite"
+		)
 	}
 </script>
 

@@ -2,14 +2,15 @@
 	import { page } from '$app/state';
 	import Https from '$lib/https.js';
 	import {
-		IconArrowBackUp,
-		IconCopy,
+		IconArrowBackUp, IconChevronDown, IconChevronUp,
+		IconCopy, IconGavel,
 		IconLock,
 		IconTrash,
 		IconWorld
 	} from '@tabler/icons-svelte';
 	import Avatar from '$lib/components/Avatar.svelte';
 	import Mfm from '$lib/components/Mfm.svelte';
+	import { createAlert } from '$lib/alert.js';
 
 	let {
 		data,
@@ -22,6 +23,8 @@
 	let responseFor = $state('');
 	let submittedResponse = $state(false);
 	let deleted = $state(false);
+	let senderBanned = $state(false);
+	let showMore = $state(false);
 
 	function copyAsk() {
 		navigator.clipboard
@@ -30,11 +33,29 @@
 ${submittedResponse ? response : data.response}
 
 ${page.url.protocol + '//' + page.url.host + '/ask/' + data.id}`);
+		createAlert(
+			"success",
+			"Copied to clipboard",
+		)
 	}
 
 	async function deleteAsk() {
 		await Https.delete('/api/v1/ask/' + data.id).then(() => {
 			deleted = true;
+			createAlert(
+				"success",
+				"Deleted ask"
+			)
+		});
+	}
+
+	async function banSender() {
+		await Https.post('/api/v1/ask/' + data.id + '/banSender').then(() => {
+			senderBanned = true;
+			createAlert(
+				"success",
+				"Banned sender"
+			)
 		});
 	}
 
@@ -44,6 +65,10 @@ ${page.url.protocol + '//' + page.url.host + '/ask/' + data.id}`);
 		}).then(() => {
 			submittedResponse = true;
 			responseFor = data.id;
+			createAlert(
+				"success",
+				"Responded to ask"
+			)
 		});
 	}
 
@@ -84,11 +109,13 @@ ${page.url.protocol + '//' + page.url.host + '/ask/' + data.id}`);
 				<Mfm content={submittedResponse ? response : data.response} />
 			</p>
 		{:else if onResponsePage && !submittedResponse}
-			<input
+			<textarea
 				class="ipt tertiary"
+				style="resize: vertical;"
 				bind:value={response}
 				placeholder="Write your response..."
-			/>
+				rows="1"
+			></textarea>
 		{/if}
 	</div>
 	{#if onResponsePage || onAdminPage}
@@ -114,9 +141,14 @@ ${page.url.protocol + '//' + page.url.host + '/ask/' + data.id}`);
 					<IconCopy size="18px" />
 					Copy
 				</button>
-				<button class="btn danger" onclick={() => deleteAsk()}>
-					<IconTrash size="18px" />
-					Delete
+				<button class="btn tertiary" onclick={() => {
+					showMore = !showMore
+				}}>
+					{#if showMore}
+						<IconChevronUp size="18px" />
+					{:else}
+						<IconChevronDown size="18px" />
+					{/if}
 				</button>
 			</div>
 		</div>
@@ -126,6 +158,23 @@ ${page.url.protocol + '//' + page.url.host + '/ask/' + data.id}`);
 				<IconArrowBackUp size="18px" />
 				View Comments ({data.commentCount})
 			</a>
+		</div>
+	{/if}
+
+	{#if showMore}
+		<div class="btnCtn padded danger">
+			<div class="end">
+				<button class="btn danger" onclick={() => deleteAsk()}>
+					<IconTrash size="18px" />
+					Delete
+				</button>
+				{#if !senderBanned}
+					<button class="btn danger" onclick={() => banSender()}>
+						<IconGavel size="18px" />
+						Ban Sender
+					</button>
+				{/if}
+			</div>
 		</div>
 	{/if}
 {/snippet}

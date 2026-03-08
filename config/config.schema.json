@@ -12,6 +12,10 @@
 			"type": "boolean",
 			"description": "Whether or not to log debug information"
 		},
+		"behindProxy": {
+			"type": "boolean",
+			"description": "Whether or not to check for IP in headers usually set by proxies"
+		},
 		"registrations": {
 			"type": "string",
 			"description": "How to handle account registrations",
